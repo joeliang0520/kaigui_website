@@ -1,0 +1,88 @@
+{
+  "source": "granta_mi",
+  "importedAt": "2026-03-10T19:28:38.413Z",
+  "exportedAt": "2025-03-10T00:00:00Z",
+  "platings": [
+    {
+      "platingId": "gold",
+      "name": "Gold Plating",
+      "color": "#D4AF37",
+      "metalness": 0.9,
+      "roughness": 0.15000000000000002,
+      "envMapIntensity": 0.85,
+      "recordId": "MAT-001"
+    },
+    {
+      "platingId": "silver",
+      "name": "Silver Plating",
+      "color": "#C0C0C0",
+      "metalness": 0.92,
+      "roughness": 0.1,
+      "envMapIntensity": 0.9,
+      "recordId": "MAT-002"
+    },
+    {
+      "platingId": "nickel",
+      "name": "Nickel Plating",
+      "color": "#A8A8A8",
+      "metalness": 0.85,
+      "roughness": 0.2,
+      "envMapIntensity": 0.7,
+      "recordId": "MAT-003"
+    },
+    {
+      "platingId": "black_nickel",
+      "name": "Black Nickel",
+      "color": "#2C2C2C",
+      "metalness": 0.8,
+      "roughness": 0.6,
+      "envMapIntensity": 0.4,
+      "recordId": "MAT-004"
+    },
+    {
+      "platingId": "copper",
+      "name": "Copper Plating",
+      "color": "#B87333",
+      "metalness": 0.88,
+      "roughness": 0.2,
+      "envMapIntensity": 0.75,
+      "recordId": "MAT-005"
+    },
+    {
+      "platingId": "antique_gold",
+      "name": "Antique Gold",
+      "color": "#B8860B",
+      "metalness": 0.82,
+      "roughness": 0.5,
+      "envMapIntensity": 0.45,
+      "recordId": "MAT-006"
+    },
+    {
+      "platingId": "antique_silver",
+      "name": "Antique Silver",
+      "color": "#8B8B8B",
+      "metalness": 0.8,
+      "roughness": 0.5,
+      "envMapIntensity": 0.5,
+      "recordId": "MAT-007"
+    },
+    {
+      "platingId": "antique_copper",
+      "name": "Antique Copper",
+      "color": "#8B4513",
+      "metalness": 0.78,
+      "roughness": 0.5,
+      "envMapIntensity": 0.4,
+      "recordId": "MAT-008"
+    },
+    {
+      "platingId": "dyed_black",
+      "name": "Dyed Black",
+      "color": "#1A1A1A",
+      "metalness": 0.6,
+      "roughness": 0.6,
+      "envMapIntensity": 0.25,
+      "recordId": "MAT-009"
+    }
+  ]
+}

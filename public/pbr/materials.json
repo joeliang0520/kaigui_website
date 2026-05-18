@@ -1,0 +1,13 @@
+{
+  "_comment": "Map plating option IDs to ambientCG PBR material base names. Add entries when you add materials.",
+  "_example": "gold: Metal048A_2K-JPG means load /pbr/gold/Metal048A_2K-JPG_Color.jpg etc.",
+  "gold": "Metal042A_2K-JPG",
+  "silver": "Metal049A_2K-JPG",
+  "nickel": "Metal045B_2K-JPG",
+  "black_nickel": "",
+  "copper": "",
+  "antique_gold": "",
+  "antique_silver": "",
+  "antique_copper": "",
+  "dyed_black": ""
+}
