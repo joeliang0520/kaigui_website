@@ -62,15 +62,6 @@ export function SiteFooter() {
               ))}
             </ul>
           </div>
-
-          <div>
-            <h5 className="font-label text-xs uppercase tracking-widest text-secondary mb-6">Direct Line</h5>
-            <ul className="space-y-3 font-label text-xs uppercase tracking-widest text-primary/60">
-              <li>Bulk RFQ Available</li>
-              <li>Min. Order: 100 pcs</li>
-              <li>Lead Time: 10–14 days</li>
-            </ul>
-          </div>
         </div>
 
       </div>
