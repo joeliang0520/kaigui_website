@@ -142,7 +142,7 @@ export default function PartnerPage() {
             <div className="h-px w-24 bg-outline-variant/30 mx-auto mb-12" />
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <Link
-                href="/product"
+                href="/contact"
                 className="px-10 py-4 bg-primary text-on-primary font-label text-xs uppercase tracking-widest hover:opacity-90 transition-opacity"
               >
                 Contact Sales

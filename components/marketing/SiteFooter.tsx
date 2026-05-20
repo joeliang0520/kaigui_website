@@ -50,6 +50,7 @@ export function SiteFooter() {
                 { href: "/about/founders", label: "Our Founders" },
                 { href: "/about/second-generation", label: "Second Generation" },
                 { href: "/licensing", label: "Licensing" },
+                { href: "/contact", label: "Contact" },
               ].map(({ href, label }) => (
                 <li key={href}>
                   <Link

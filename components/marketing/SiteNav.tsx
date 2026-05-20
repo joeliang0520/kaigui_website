@@ -49,7 +49,7 @@ export function SiteNav() {
 
         {/* CTA */}
         <Link
-          href="/product"
+          href="/contact"
           className="bg-primary text-on-primary px-6 py-2.5 text-xs font-label uppercase tracking-widest hover:opacity-90 active:scale-[0.99] transition-transform"
         >
           Contact Sales

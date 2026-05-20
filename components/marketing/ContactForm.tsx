@@ -1,15 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function ContactForm() {
   const [email, setEmail] = useState("");
+  const router = useRouter();
 
   return (
     <form
       className="grid grid-cols-1 md:grid-cols-2 gap-4"
       onSubmit={(e) => {
         e.preventDefault();
+        const query = email.trim() ? `?email=${encodeURIComponent(email.trim())}` : "";
+        router.push(`/contact${query}`);
         setEmail("");
       }}
     >
@@ -30,7 +34,7 @@ export function ContactForm() {
           type="submit"
           className="w-full bg-secondary text-on-secondary-fixed font-label uppercase tracking-widest text-xs py-5 px-8 hover:bg-secondary-fixed-dim transition-colors"
         >
-          Request Allocation
+          Contact Sales
         </button>
       </div>
     </form>
