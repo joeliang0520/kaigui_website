@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { CertificateImage } from "@/components/marketing/CertificateImage";
 
 const COMPLIANCE_CARDS = [
   {
@@ -20,9 +21,9 @@ const COMPLIANCE_CARDS = [
   {
     icon: "verified_user",
     title: "Legal Transparency",
-    body: "Obtaining a Chinese Plating License is one of the most difficult certifications to secure globally. KaiGui holds this license — placing us among the 0.1% compliance elite worldwide.",
+    body: "Electroplating is one of the most heavily regulated manufacturing processes in China. KaiGui holds the required plating and pollutant discharge permits, allowing us to manage plating quality, wastewater treatment, and compliance control within our own facility.",
     metaLabel: "Audit Frequency",
-    metaValue: "QUARTERLY EXTERNAL REVIEW",
+    metaValue: "Quarterly Third-Party Compliance Review",
   },
 ];
 
@@ -116,12 +117,13 @@ export default function LicensingPage() {
 
               {/* Main: Pollutant Discharge Permit */}
               <div className="md:col-span-8 bg-surface-container-lowest p-8 flex flex-col md:flex-row gap-8 items-center border border-outline-variant/10">
-                <div className="w-full md:w-1/3 aspect-[3/4] bg-surface-container-low flex items-center justify-center relative group cursor-pointer overflow-hidden rounded-sm">
-                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="material-symbols-outlined text-4xl text-outline-variant">description</span>
-                  <div className="absolute bottom-4 left-4 right-4 py-2 bg-surface-container-lowest/80 backdrop-blur text-center font-label text-[10px] tracking-widest opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-                    VIEW DOCUMENT
-                  </div>
+                <div className="w-full md:w-1/3">
+                  <CertificateImage
+                    src="/certificates/pollutant-discharge-permit.png"
+                    alt="KaiGui Pollutant Discharge Permit"
+                    aspectClass="aspect-[3/4]"
+                    hoverLabel="VIEW DOCUMENT"
+                  />
                 </div>
                 <div className="flex-1">
                   <span className="font-label text-[10px] text-secondary tracking-widest uppercase mb-2 block">
@@ -129,9 +131,10 @@ export default function LicensingPage() {
                   </span>
                   <h4 className="font-headline text-2xl text-primary mb-4">Pollutant Discharge Permit</h4>
                   <p className="font-body text-on-surface-variant text-sm mb-6 leading-relaxed">
-                    Issued by the Municipal Bureau of Ecology and Environment, this permit authorizes our
-                    chemical handling and discharge protocols, ensuring all output meets National Grade A
-                    standards for industrial water management across our Kunshan facility.
+                    Issued by the local Ecology and Environment authority, this permit authorizes
+                    KaiGui&apos;s regulated discharge activities and confirms that our wastewater, air
+                    emissions, and related production outputs are managed under approved environmental
+                    standards, monitoring requirements, and compliance controls across our Kunshan facility.
                   </p>
                   <div className="flex items-center gap-4">
                     <span className="px-3 py-1 bg-secondary/10 text-secondary font-label text-[10px] tracking-wider uppercase">
@@ -158,30 +161,31 @@ export default function LicensingPage() {
                     machinery operations. Registration No. 320583000.
                   </p>
                 </div>
-                <div className="aspect-square bg-surface-container-low flex items-center justify-center relative group cursor-pointer rounded-sm overflow-hidden">
-                  <span className="material-symbols-outlined text-4xl text-outline-variant">workspace_premium</span>
-                  <div className="absolute inset-0 flex items-center justify-center bg-primary/40 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="text-white font-label text-xs tracking-widest">PREVIEW</span>
-                  </div>
-                </div>
+                <CertificateImage
+                  src="/certificates/electroplating-compliance-certificate.png"
+                  alt="Suzhou Electroplating Enterprise Compliance Certificate"
+                  aspectClass="aspect-square"
+                  hoverLabel="PREVIEW"
+                />
               </div>
 
               {/* Safety Protocol */}
-              <div className="md:col-span-4 bg-surface-container-lowest p-8 border border-outline-variant/10 flex flex-col justify-center">
+              <div className="md:col-span-6 bg-surface-container-lowest p-8 border border-outline-variant/10 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
                     <span className="material-symbols-outlined text-secondary">shield_with_heart</span>
                   </div>
-                  <h5 className="font-headline text-lg text-primary">Safety Protocol Cert</h5>
+                  <h5 className="font-headline text-lg text-primary">Safety Protocol Certification</h5>
                 </div>
                 <p className="font-body text-xs text-on-surface-variant leading-relaxed">
                   Annual occupational health and safety verification for chemical workshop technicians
-                  and electroplating operators at the Kunshan facility.
+                  and electroplating operators at our Kunshan facility, ensuring safe handling of
+                  chemicals, compliant electroplating operations, and proper on-site safety procedures.
                 </p>
               </div>
 
               {/* Global Export License */}
-              <div className="md:col-span-4 bg-surface-container-lowest p-8 border border-outline-variant/10 flex flex-col justify-center">
+              <div className="md:col-span-6 bg-surface-container-lowest p-8 border border-outline-variant/10 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
                     <span className="material-symbols-outlined text-secondary">public</span>
@@ -189,26 +193,11 @@ export default function LicensingPage() {
                   <h5 className="font-headline text-lg text-primary">Global Export License</h5>
                 </div>
                 <p className="font-body text-xs text-on-surface-variant leading-relaxed">
-                  Permit for international distribution of electroplated premium hardware components
-                  to 30+ countries across North America, Europe, and Asia-Pacific.
+                  KAIGUI has long-standing export experience, supplying electroplated metal products
+                  and premium hardware components to clients across North America, Europe, and
+                  Asia-Pacific. Our export operations support international documentation, customs
+                  coordination, and shipment requirements for global clients.
                 </p>
-              </div>
-
-              {/* CTA Card */}
-              <div className="md:col-span-4 bg-primary p-8 flex flex-col justify-center">
-                <h5 className="font-headline text-lg text-on-primary mb-4">
-                  Request Full Compliance Audit
-                </h5>
-                <p className="font-body text-xs text-on-primary-container mb-6 leading-relaxed">
-                  Our full data room is open to enterprise partners during the due diligence phase.
-                  Contact our compliance team to schedule a review.
-                </p>
-                <Link
-                  href="/about"
-                  className="w-full py-3 text-center border border-on-primary/20 text-on-primary font-label text-[10px] uppercase tracking-widest hover:bg-on-primary hover:text-primary transition-all block"
-                >
-                  Connect with Compliance
-                </Link>
               </div>
 
             </div>

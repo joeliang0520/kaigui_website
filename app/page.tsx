@@ -37,7 +37,7 @@ export default function Home() {
               </p>
               <div className="flex flex-wrap gap-4">
                 <Link
-                  href="/product"
+                  href="/partner"
                   className="bg-primary text-on-primary px-10 py-5 text-sm font-label uppercase tracking-widest shadow-2xl hover:opacity-90 active:scale-[0.99] transition-all"
                 >
                   Partner With Us
@@ -83,8 +83,8 @@ export default function Home() {
                       <span className="material-symbols-outlined text-secondary">verified</span>
                     </div>
                     <div>
-                      <h4 className="font-label font-bold text-sm uppercase tracking-wider">BSCI Certified</h4>
-                      <p className="text-xs text-on-surface-variant font-body">Ethical production standards verified annually.</p>
+                      <h4 className="font-label font-bold text-sm uppercase tracking-wider">ISO 14001:2015</h4>
+                      <p className="text-xs text-on-surface-variant font-body">Global environment system in place.</p>
                     </div>
                   </div>
 
