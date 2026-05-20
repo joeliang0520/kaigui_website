@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pin Configuration — Customization Atelier</title>
+
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #dce8f2; color: #1a1a1a; }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #c8c0b0; border-radius: 3px; }
+
+  input:focus, textarea:focus { box-shadow: 0 0 0 2px rgba(196,154,58,0.35); }
+
+  @keyframes pin-spin { to { transform: rotate(360deg); } }
+
+  /* Tweaks panel */
+  #tweaks-panel {
+    display: none; position: fixed; bottom: 24px; right: 24px; z-index: 999;
+    background: white; border: 1.5px solid #d8d0c0; border-radius: 6px;
+    padding: 18px 20px; min-width: 240px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  }
+  #tweaks-panel.visible { display: block; }
+  #tweaks-panel h4 { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #7a6030; margin-bottom: 14px; }
+  #tweaks-panel label { font-size: 11px; color: #666; display: block; margin-bottom: 3px; margin-top: 10px; }
+  #tweaks-panel input[type=color] { width: 100%; height: 30px; border: 1px solid #ddd; border-radius: 3px; cursor: pointer; padding: 1px; }
+  #tweaks-panel select { width: 100%; padding: 6px 8px; border: 1.5px solid #d8d0c0; border-radius: 3px; font-size: 12px; outline: none; }
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+<div id="tweaks-panel">
+  <h4>Tweaks</h4>
+  <label>Accent color</label>
+  <input type="color" id="tw-accent" value="#c49a3a" oninput="applyTweaks()"/>
+  <label>Viewer background</label>
+  <input type="color" id="tw-bg" value="#dce8f2" oninput="applyTweaks()"/>
+  <label>Font style</label>
+  <select id="tw-font" onchange="applyTweaks()">
+    <option value="'Helvetica Neue',Helvetica,Arial,sans-serif">Helvetica (Clean)</option>
+    <option value="Georgia,'Times New Roman',serif">Georgia (Editorial)</option>
+    <option value="'Courier New',Courier,monospace">Courier (Technical)</option>
+  </select>
+</div>
+
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#f5f0e6",
+  "viewerBg": "#dce8f2",
+  "fontFamily": "'Helvetica Neue',Helvetica,Arial,sans-serif"
+}/*EDITMODE-END*/;
+
+function applyTweaks() {
+  const accent = document.getElementById('tw-accent').value;
+  const bg = document.getElementById('tw-bg').value;
+  const font = document.getElementById('tw-font').value;
+  document.documentElement.style.setProperty('--accent', accent);
+  document.documentElement.style.setProperty('--viewer-bg', bg);
+  document.documentElement.style.setProperty('--font', font);
+  document.body.style.fontFamily = font;
+  document.body.style.background = bg;
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accentColor: accent, viewerBg: bg, fontFamily: font } }, '*');
+}
+
+// Init tweaks from defaults
+(function() {
+  const d = TWEAK_DEFAULTS;
+  document.documentElement.style.setProperty('--accent', d.accentColor);
+  document.documentElement.style.setProperty('--viewer-bg', d.viewerBg);
+  document.documentElement.style.setProperty('--font', d.fontFamily);
+  document.body.style.fontFamily = d.fontFamily;
+  document.body.style.background = d.viewerBg;
+})();
+
+// Tweaks toggle protocol
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode')   document.getElementById('tweaks-panel').classList.add('visible');
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('visible');
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+</script>
+
+<script type="text/babel" src="viewer.jsx"></script>
+<script type="text/babel" src="config-panel.jsx"></script>
+
+<script type="text/babel">
+
+const { useState, useEffect, useRef, useCallback } = React;
+
+// ── Website integration ────────────────────────────────────────────────────
+// The pin style being designed is passed in via the ?style= query param when
+// the customizer is embedded in the KaiGui website. The "← All Styles" control
+// returns the visitor to the product catalogue.
+const STYLE_LABEL = (() => {
+  try { return new URLSearchParams(window.location.search).get('style') || 'Hard Enamel Pin'; }
+  catch { return 'Hard Enamel Pin'; }
+})();
+const PRODUCT_URL = '/product';
+function backToAllStyles() {
+  try { window.top.location.href = PRODUCT_URL; }
+  catch { window.location.href = PRODUCT_URL; }
+}
+
+const TABS = [
+{ id: 'shape', label: 'Shape & Size' },
+{ id: 'material', label: 'Material' },
+{ id: 'effects', label: 'Effects' },
+{ id: 'backside', label: 'Back Side' },
+{ id: 'attachment', label: 'Attachment' },
+{ id: 'pack', label: 'Pack' }];
+
+
+const DEFAULT_CONFIG = {
+  shape: 'circle', size: 3, sizeH: 3, thickness: 2.2,
+  material: 'gold', effects: [],
+  backSide: 'plain', backText: '', engravingText: '',
+  attachment: 'rubber_clutch',
+  packaging: 'thin_poly', quantity: 100, customQty: '',
+  magnetSize: 12, boxDimensions: { l: '', h: '', w: '' }
+};
+
+function useLocalStorage(key, init) {
+  const [val, setVal] = useState(() => {
+    try {const s = localStorage.getItem(key);return s ? JSON.parse(s) : init;} catch {return init;}
+  });
+  useEffect(() => {try {localStorage.setItem(key, JSON.stringify(val));} catch {}}, [key, val]);
+  return [val, setVal];
+}
+
+// ── Bottom bar: scale reference + info ─────────────────────────────────────
+
+function ViewerBottomBar({ config }) {
+  const plating = window.PLATINGS?.find((p) => p.id === config.material) || { name: 'Gold', color: '#D4AF37' };
+  const sizeIn = (config.size / 2.54).toFixed(2);
+  const sizeMm = config.size * 10;
+
+  // Scale reference: $1 coin = 26.5mm diameter
+  const COIN_MM = 26.5;
+  const COIN_R = 24; // coin radius in SVG px
+  const MAX_PIN_R = 44; // cap so even 3" pin fits
+  const pinR = COIN_R * (sizeMm / COIN_MM);
+  const clampedPinR = Math.max(6, Math.min(pinR, MAX_PIN_R));
+
+  // Layout so labels never sit on top of either circle: rows are
+  //   [TOP_PAD][circles, centered at CY][LABEL_GAP][label row]
+  const TOP_PAD = 6,LABEL_GAP = 8,LABEL_H = 12;
+  const maxR = Math.max(COIN_R, clampedPinR);
+  const CY = TOP_PAD + maxR;
+  const labelY = CY + maxR + LABEL_GAP + LABEL_H * 0.5;
+  const SVG_H = labelY + LABEL_H * 0.5 + 2;
+
+  // Horizontal positions: coin on left, pin on right with breathing room
+  const coinCX = COIN_R + 6;
+  const pinCX = coinCX + COIN_R + 10 + clampedPinR;
+  const SVG_W = pinCX + clampedPinR + 6;
+
+  return (
+    <div style={{
+      display: 'flex', alignItems: 'center', gap: 14, padding: '10px 16px',
+      background: '#f0ece4', borderTop: '1px solid #d8d0c0',
+      fontSize: 11, color: '#777', flexShrink: 0
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+        <span style={{ fontSize: 9, letterSpacing: 1.5, textTransform: 'uppercase', color: '#aaa' }}>Scale Ref</span>
+        <svg width={SVG_W} height={SVG_H} viewBox={`0 0 ${SVG_W} ${SVG_H}`} style={{ overflow: 'visible' }}>
+          {/* Coin */}
+          <circle cx={coinCX} cy={CY} r={COIN_R} fill="#d4af37" stroke="#b8920a" strokeWidth="1.2" />
+          <text x={coinCX} y={CY + 4} fontSize="11" fill="#7a5c0a" textAnchor="middle" fontWeight="bold" fontFamily="Georgia,serif">$1</text>
+          <text x={coinCX} y={labelY} fontSize="9" fill="#888" textAnchor="middle" fontFamily="monospace">26.5mm</text>
+          {/* Pin — scaled relative to coin */}
+          <circle cx={pinCX} cy={CY} r={clampedPinR} fill={plating.color}
+          stroke={window.hexDarken?.(plating.color, 0.6) || '#888'} strokeWidth="1.2" strokeDasharray="3 2" />
+          <text x={pinCX} y={labelY} fontSize="9" fill="#888" textAnchor="middle" fontFamily="monospace">{sizeMm.toFixed(1)}mm</text>
+        </svg>
+      </div>
+      <div>
+        <span style={{ fontWeight: 600, color: '#444' }}>⌀ </span>
+        <span style={{ color: '#222' }}>{sizeIn}" / {sizeMm.toFixed(1)}mm</span>
+        <span style={{ color: '#aaa', marginLeft: 8 }}>· {(config.thickness || 2.2).toFixed(1)}mm thick</span>
+      </div>
+      <div style={{ marginLeft: 'auto', letterSpacing: 1, fontSize: 9, textTransform: 'uppercase', color: '#aaa' }}>
+        Material Honesty: Direct-to-Factory
+      </div>
+    </div>);
+
+}
+
+// ── Upload area ─────────────────────────────────────────────────────────────
+
+function UploadArea() {
+  const [dragging, setDragging] = useState(false);
+  return (
+    <div style={{ padding: '14px 16px', background: '#f7f4ef', borderTop: '1px solid #d8d0c0', flexShrink: 0 }}>
+      <div style={{ fontSize: 10, letterSpacing: 1.5, textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>Upload Your Design</div>
+      <div
+        onDragOver={(e) => {e.preventDefault();setDragging(true);}}
+        onDragLeave={() => setDragging(false)}
+        onDrop={(e) => {e.preventDefault();setDragging(false);}}
+        style={{
+          border: `1.5px dashed ${dragging ? '#c49a3a' : '#c0b8a8'}`,
+          borderRadius: 4, padding: '14px 12px', textAlign: 'center',
+          background: dragging ? '#fdf6e3' : 'transparent', transition: 'all 0.2s', cursor: 'pointer'
+        }}
+        onClick={() => document.getElementById('file-inp').click()}>
+
+        <div style={{ fontSize: 20, color: '#bbb', marginBottom: 4 }}>☁</div>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#666' }}>Drag &amp; Drop Vector Art</div>
+        <div style={{ fontSize: 10, color: '#999', marginTop: 2 }}>AI, EPS, SVG, PNG or PDF · Max 10 MB</div>
+        <input id="file-inp" type="file" style={{ display: 'none' }} accept=".ai,.eps,.svg,.png,.pdf" />
+      </div>
+    </div>);
+
+}
+
+// ── Summary sidebar ────────────────────────────────────────────────────────
+
+function SelectionSummary({ config }) {
+  const plating = window.PLATINGS?.find((p) => p.id === config.material);
+
+  const rows = [
+  ['Shape', config.shape.charAt(0).toUpperCase() + config.shape.slice(1)],
+  ['Size', config.shape === 'rectangle' ?
+  `${config.size.toFixed(2)} × ${config.sizeH.toFixed(2)} cm` :
+  `⌀ ${config.size.toFixed(2)} cm`],
+  ['Thickness', `${(config.thickness || 2.2).toFixed(1)} mm`],
+  ['Material', plating?.name || '—'],
+  ['Effects', config.effects.length ? config.effects.join(', ') : 'None'],
+  ['Attachment', (() => {
+    const a = config.attachment.replace(/_/g, ' ');
+    const isMagnet = config.attachment === 'magnet' || config.attachment === 'magnet_2x';
+    return isMagnet ? `${a} (${config.magnetSize || 12}mm)` : a;
+  })()],
+  ['Packaging', (() => {
+    const p = config.packaging.replace(/_/g, ' ');
+    const dims = config.boxDimensions;
+    if (dims && (dims.l || dims.h || dims.w)) {
+      const d = [dims.l, dims.h, dims.w].map((v) => v || '?').join('×');
+      return `${p} [${d} cm]`;
+    }
+    return p;
+  })()],
+  ['Quantity', config.quantity.toLocaleString() + ' pcs']];
+
+
+  return (
+    <div style={{ padding: '16px', borderTop: '1px solid #d8d0c0', background: '#faf8f4', flexShrink: 0 }}>
+      <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: '#7a6030', marginBottom: 10 }}>Order Summary</div>
+      {rows.map(([k, v]) =>
+      <div key={k} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: '#666', marginBottom: 4, gap: 8 }}>
+          <span>{k}</span>
+          <span style={{ color: '#333', fontWeight: 500, textAlign: 'right', textTransform: 'capitalize' }}>{v}</span>
+        </div>
+      )}
+    </div>);
+
+}
+
+// ── Main App ────────────────────────────────────────────────────────────────
+
+function App() {
+  const [view, setView] = useLocalStorage('pin-view', '3d');
+  const [tabIdx, setTabIdx] = useLocalStorage('pin-tab', 0);
+  const [config, setConfig] = useLocalStorage('pin-config', DEFAULT_CONFIG);
+  const [submitted, setSubmitted] = useState(false);
+
+  const tab = TABS[tabIdx];
+
+  const accent = 'var(--accent, #c49a3a)';
+
+  const tabContent = {
+    shape: <window.ShapeTab config={config} setConfig={setConfig} />,
+    material: <window.MaterialTab config={config} setConfig={setConfig} />,
+    effects: <window.EffectsTab config={config} setConfig={setConfig} />,
+    backside: <window.BackSideTab config={config} setConfig={setConfig} />,
+    attachment: <window.AttachmentTab config={config} setConfig={setConfig} />,
+    pack: <window.PackTab config={config} setConfig={setConfig} />
+  };
+
+  // Header
+  const header =
+  <div style={{
+    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    padding: '0 20px', height: 48,
+    background: 'white', borderBottom: '1px solid #d8d0c0',
+    flexShrink: 0, position: 'sticky', top: 0, zIndex: 10
+  }}>
+      <div style={{ fontSize: 12, color: '#888', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <button onClick={backToAllStyles} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#999' }}>← All Styles</button>
+        <span style={{ color: '#ccc' }}>/</span>
+        <span style={{ fontWeight: 700, letterSpacing: 0.5, color: '#555', textTransform: 'uppercase', fontSize: 11 }}>{STYLE_LABEL}</span>
+      </div>
+      {/* 3D / 2D toggle */}
+      <div style={{ display: 'flex', border: '1.5px solid #1a1a1a', borderRadius: 2, overflow: 'hidden' }}>
+        {['3d', '2d'].map((v) =>
+      <button key={v} onClick={() => setView(v)} style={{
+        padding: '5px 14px', fontSize: 11, fontWeight: 700, letterSpacing: 1,
+        textTransform: 'uppercase', cursor: 'pointer', border: 'none',
+        background: view === v ? '#1a1a1a' : 'white',
+        color: view === v ? 'white' : '#1a1a1a',
+        transition: 'all 0.15s'
+      }}>
+            {v === '3d' ? '3D View' : '2D Flat'}
+          </button>
+      )}
+      </div>
+    </div>;
+
+
+  if (submitted) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        {header}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }}>
+          <div style={{ fontSize: 32, color: '#c49a3a' }}>✓</div>
+          <h2 style={{ fontWeight: 600, color: '#333' }}>Design Submitted</h2>
+          <p style={{ color: '#888', fontSize: 14, textAlign: 'center', maxWidth: 340, lineHeight: 1.6 }}>
+            Thank you! Our team will review your specifications and follow up within 24 hours.
+          </p>
+          <button onClick={() => {setSubmitted(false);setTabIdx(0);}}
+          style={{ marginTop: 8, padding: '10px 24px', background: '#1a1a1a', color: 'white', border: 'none', borderRadius: 2, cursor: 'pointer', fontSize: 13, fontWeight: 600 }}>
+            Start New Design
+          </button>
+        </div>
+      </div>);
+
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
+      {header}
+
+      {/* Main 2-column layout */}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minHeight: 0 }}>
+
+        {/* ── LEFT: Viewer ────────────────────────────────────────────── */}
+        <div style={{
+          flex: '0 0 52%', display: 'flex', flexDirection: 'column',
+          background: 'var(--viewer-bg, #dce8f2)', borderRight: '1px solid #c8d4e0',
+          overflow: 'hidden'
+        }}>
+          {/* 3D / 2D Canvas */}
+          <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0 }}>
+            {view === '3d' ?
+            <window.Pin3DViewer config={config} /> :
+            <window.Pin2DFlat config={config} />
+            }
+          </div>
+
+          {/* Bottom bar */}
+          <ViewerBottomBar config={config} />
+
+          {/* Upload */}
+          <UploadArea />
+        </div>
+
+        {/* ── RIGHT: Config panel ──────────────────────────────────────── */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: 'white', overflow: 'hidden' }}>
+
+          {/* Panel header */}
+          <div style={{ padding: '24px 28px 0', flexShrink: 0 }}>
+            <div style={{ fontSize: 10, letterSpacing: 2, textTransform: 'uppercase', color: '#c49a3a', fontWeight: 700, marginBottom: 6 }}>
+
+            </div>
+            <h1 style={{ fontSize: 28, fontWeight: 700, color: '#1a1a1a', fontFamily: 'Georgia, serif', lineHeight: 1.2 }}>
+              Pin Configuration
+            </h1>
+            <p style={{ fontSize: 13, color: '#888', marginTop: 6, lineHeight: 1.6 }}>
+              Calibrate your design with precision-grade materials and finishes.<br />
+              Every element is crafted to your exact technical specifications.
+            </p>
+
+            {/* Tab navigation */}
+            <div style={{ display: 'flex', gap: 0, marginTop: 20, borderBottom: '1px solid #e0d8c8' }}>
+              {TABS.map((t, i) => {
+                const active = tabIdx === i;
+                return (
+                  <button key={t.id} onClick={() => setTabIdx(i)} style={{
+                    flex: '1 1 0', minWidth: 0,
+                    padding: '12px 6px', background: 'none', border: 'none',
+                    borderBottom: active ? `2.5px solid #c49a3a` : '2.5px solid transparent',
+                    cursor: 'pointer', fontSize: 14, fontWeight: active ? 700 : 500,
+                    color: active ? '#c49a3a' : '#888',
+                    whiteSpace: 'nowrap', transition: 'all 0.15s',
+                    marginBottom: -1, textAlign: 'center'
+                  }}>
+                    <span style={{ opacity: 0.6, marginRight: 3 }}>{i + 1}.</span>
+                    {t.label}
+                  </button>);
+
+              })}
+            </div>
+          </div>
+
+          {/* Tab content — scrollable */}
+          <div style={{ flex: 1, overflowY: 'auto', padding: '22px 28px', minHeight: 0 }}>
+            {tabContent[tab.id]}
+          </div>
+
+          {/* Bottom bar: production time + navigation */}
+          <div style={{
+            flexShrink: 0, padding: '14px 28px',
+            borderTop: '1px solid #e0d8c8',
+            display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 12, background: '#fafaf8'
+          }}>
+            <button
+              onClick={() => tabIdx > 0 && setTabIdx(tabIdx - 1)}
+              disabled={tabIdx === 0}
+              style={{
+                padding: '9px 18px', border: '1.5px solid #333', background: 'white', borderRadius: 2,
+                cursor: tabIdx === 0 ? 'not-allowed' : 'pointer', fontSize: 12, fontWeight: 600, color: '#333',
+                opacity: tabIdx === 0 ? 0.35 : 1, transition: 'all 0.15s'
+              }}>
+              ← Previous
+            </button>
+            {tabIdx < TABS.length - 1 ?
+            <button onClick={() => setTabIdx(tabIdx + 1)} style={{
+              padding: '9px 20px', border: 'none', background: '#1a1a1a', color: 'white',
+              borderRadius: 2, cursor: 'pointer', fontSize: 12, fontWeight: 700, letterSpacing: 0.3
+            }}>
+                Proceed to {TABS[tabIdx + 1].label} →
+              </button> :
+
+            <button onClick={() => setSubmitted(true)} style={{
+              padding: '9px 20px', border: 'none', background: '#c49a3a', color: 'white',
+              borderRadius: 2, cursor: 'pointer', fontSize: 12, fontWeight: 700, letterSpacing: 0.3
+            }}>
+                Submit Design →
+              </button>
+            }
+          </div>
+
+          {/* Selection summary */}
+          <SelectionSummary config={config} />
+        </div>
+      </div>
+    </div>);
+
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
