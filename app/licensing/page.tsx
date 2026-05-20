@@ -141,7 +141,7 @@ export default function LicensingPage() {
                       Active
                     </span>
                     <span className="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">
-                      Valid Thru 2027
+                      Valid Thru 3031
                     </span>
                   </div>
                 </div>
