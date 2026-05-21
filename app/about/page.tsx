@@ -81,6 +81,48 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* ── Factory Tour ── */}
+        <section className="mb-32 bg-surface-container-low overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-12">
+            <div className="lg:col-span-5 min-h-[420px] relative">
+              <img
+                src="/images/factory-tour-facility-exterior.jpg"
+                alt="KaiGui factory exterior"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-primary/10" />
+            </div>
+
+            <div className="lg:col-span-7 p-10 md:p-16 flex flex-col justify-center">
+              <span className="font-label text-secondary text-xs uppercase tracking-[0.25em] block mb-6">
+                Factory Tour
+              </span>
+              <h2 className="font-headline text-4xl md:text-6xl text-primary leading-tight mb-8">
+                See the controls behind every custom finish.
+              </h2>
+              <p className="text-on-surface-variant text-lg leading-relaxed max-w-2xl mb-10">
+                Step inside our Kunshan facility for a closer look at vertically integrated
+                production, licensed plating operations, environmental controls, and quality
+                checkpoints across the factory floor.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/about/factory-tour"
+                  className="inline-flex justify-center bg-primary text-on-primary px-8 py-4 text-xs font-label uppercase tracking-widest hover:opacity-90 transition-opacity"
+                >
+                  Watch Factory Tour
+                </Link>
+                <Link
+                  href="/licensing"
+                  className="inline-flex justify-center border border-primary/20 text-primary px-8 py-4 text-xs font-label uppercase tracking-widest hover:bg-surface-container-lowest transition-colors"
+                >
+                  View Capabilities
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── The Visionaries ── */}
         <section className="mb-32">
           <div className="flex justify-between items-baseline mb-16">

@@ -6,24 +6,84 @@ import { CertificateImage } from "@/components/marketing/CertificateImage";
 const COMPLIANCE_CARDS = [
   {
     icon: "science",
-    title: "The Art of Electroplating",
-    body: "Our electroplating techniques use electrical current to molecularly bond gold, silver, or nickel to a base metal. Beyond aesthetics, precision plating determines the final look, feel, and longevity of every product.",
-    metaLabel: "Technical Standard",
-    metaValue: "ISO 9001:2015 REFINED",
+    title: "In-House Plating Control",
+    body: "KaiGui manages electroplating and surface finishing inside its own certified facility, giving customers tighter control over appearance, corrosion resistance, wear performance, and production consistency.",
+    metaLabel: "Capability",
+    metaValue: "Decorative + Functional Plating",
   },
   {
     icon: "eco",
-    title: "Environmental Stewardship",
-    body: "Our in-house advanced wastewater treatment facility cycles through multiple neutralization phases, ensuring 100% of discharged water meets or exceeds ultra-strict local environmental standards.",
-    metaLabel: "Eco Metric",
-    metaValue: "98% WASTE RECLAMATION",
+    title: "Environmental Accountability",
+    body: "Electroplating requires wastewater treatment, discharge monitoring, chemical handling, and documented environmental controls. Our credentials support these obligations at the factory level.",
+    metaLabel: "Controlled Area",
+    metaValue: "Wastewater + Chemical Management",
   },
   {
     icon: "verified_user",
-    title: "Legal Transparency",
-    body: "Electroplating is one of the most heavily regulated manufacturing processes in China. KaiGui holds the required plating and pollutant discharge permits, allowing us to manage plating quality, wastewater treatment, and compliance control within our own facility.",
-    metaLabel: "Audit Frequency",
-    metaValue: "Quarterly Third-Party Compliance Review",
+    title: "Legal Manufacturing Basis",
+    body: "In China, factories must hold both a pollutant discharge permit and an electroplating operation license to legally perform electroplating. KaiGui holds both documents.",
+    metaLabel: "Required License Stack",
+    metaValue: "Pollutant Permit + Plating License",
+  },
+];
+
+const PLATING_GROUPS = [
+  {
+    icon: "workspace_premium",
+    title: "Precious & Decorative Finishes",
+    items: [
+      "Gold plating",
+      "Silver plating",
+      "Tin plating",
+      "Bronze / brass plating",
+      "Matte gold (fog gold)",
+    ],
+  },
+  {
+    icon: "layers",
+    title: "Nickel, Chrome & Technical Systems",
+    items: [
+      "Chrome plating",
+      "Black nickel",
+      "Electroless nickel (chemical nickel)",
+      "Semi-bright / matte nickel",
+    ],
+  },
+  {
+    icon: "palette",
+    title: "Antique & Textured Series",
+    items: [
+      "Antique gold",
+      "Antique silver",
+      "Antique copper",
+      "Antique red copper",
+      "Satin and textured matte series",
+    ],
+  },
+  {
+    icon: "shield",
+    title: "Protective & OEM Programs",
+    items: [
+      "Electrophoretic coating (E-coating)",
+      "Corrosion-resistant plating",
+      "Wear-protection plating",
+      "OEM electroplating services",
+    ],
+  },
+];
+
+const LICENSE_CONTROL_EVIDENCE = [
+  {
+    title: "Quality Control",
+    image: "/images/factory-tour-quality-control.png",
+    alt: "KaiGui quality control display from the factory tour",
+    body: "Inspection discipline, controlled production records, and batch-level review keep custom work aligned with approved samples.",
+  },
+  {
+    title: "Environmental Control",
+    image: "/images/factory-tour-environmental-control.png",
+    alt: "KaiGui environmental control display from the factory tour",
+    body: "Licensed plating operations depend on wastewater treatment, emission control, and documented environmental management.",
   },
 ];
 
@@ -103,14 +163,73 @@ export default function LicensingPage() {
           </div>
         </section>
 
+        {/* ── Plating Service Scope ── */}
+        <section className="px-12 pb-24 max-w-[1440px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            <div className="lg:col-span-4">
+              <span className="font-label text-secondary text-xs uppercase tracking-[0.2em] mb-4 block">
+                Surface Finishing Scope
+              </span>
+              <h2 className="font-headline text-4xl md:text-5xl text-primary leading-tight">
+                KaiGui Plating Services
+              </h2>
+            </div>
+            <div className="lg:col-span-8">
+              <p className="font-body text-on-surface-variant text-lg leading-relaxed max-w-4xl">
+                KaiGui offers a comprehensive range of in-house plating, electroplating, and surface
+                finishing capabilities for decorative appearance, contract manufacturing
+                specifications, and functional performance requirements.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+            {PLATING_GROUPS.map(({ icon, title, items }) => (
+              <div
+                key={title}
+                className="bg-surface-container-lowest border border-outline-variant/10 p-7 min-h-[300px] flex flex-col"
+              >
+                <span className="material-symbols-outlined text-secondary text-3xl mb-6 block">
+                  {icon}
+                </span>
+                <h3 className="font-headline text-xl text-primary mb-6">{title}</h3>
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {items.map((item) => (
+                    <span
+                      key={item}
+                      className="max-w-full break-words border border-outline-variant/30 bg-surface-bright px-3 py-2 font-label text-[10px] uppercase tracking-wider text-primary leading-relaxed"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── Certified Credentials Bento ── */}
         <section className="px-12 py-24 bg-surface-container-low">
           <div className="max-w-[1440px] mx-auto">
-            <div className="mb-16">
-              <h2 className="font-headline text-4xl text-primary mb-4">Certified Credentials</h2>
-              <p className="font-label text-xs uppercase tracking-widest text-on-surface-variant">
-                Authenticated Licensing Documents — KunShan Kaigui Ornament Co., Ltd.
-              </p>
+            <div className="mb-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
+              <div className="lg:col-span-6">
+                <h2 className="font-headline text-4xl text-primary mb-4">Certified Credentials</h2>
+                <p className="font-label text-xs uppercase tracking-widest text-on-surface-variant">
+                  Authenticated Licensing Documents — KunShan Kaigui Ornament Co., Ltd.
+                </p>
+              </div>
+              <div className="lg:col-span-6 bg-surface-container-lowest border border-outline-variant/10 p-8">
+                <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-4">
+                  One of the hardest license stacks to obtain in China
+                </span>
+                <p className="font-body text-on-surface-variant text-sm leading-relaxed">
+                  In China, a factory must hold both a Pollutant Discharge Permit
+                  (排污许可证) and an Electroplating Operation License (电镀证) in order to
+                  legally perform electroplating. KunShan Kaigui Ornament Co., Ltd. obtains
+                  both, helping customers meet environmental obligations and product-compliance
+                  standards through a properly licensed manufacturing base.
+                </p>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -135,6 +254,7 @@ export default function LicensingPage() {
                     KaiGui&apos;s regulated discharge activities and confirms that our wastewater, air
                     emissions, and related production outputs are managed under approved environmental
                     standards, monitoring requirements, and compliance controls across our Kunshan facility.
+                    It is the environmental foundation for legal electroplating production.
                   </p>
                   <div className="flex items-center gap-4">
                     <span className="px-3 py-1 bg-secondary/10 text-secondary font-label text-[10px] tracking-wider uppercase">
@@ -157,8 +277,9 @@ export default function LicensingPage() {
                     Electroplating Operation License
                   </h4>
                   <p className="font-body text-on-surface-variant text-sm leading-relaxed">
-                    Specialized certification for handling precious metal electrolytes and electrochemical
-                    machinery operations. Registration No. 320583000.
+                    Specialized certification for electroplating operations, precious metal electrolytes,
+                    surface finishing workflows, and electrochemical machinery management. Registration
+                    No. 320583000.
                   </p>
                 </div>
                 <CertificateImage
@@ -200,6 +321,50 @@ export default function LicensingPage() {
                 </p>
               </div>
 
+            </div>
+
+            <div className="mt-16 border-t border-outline-variant/20 pt-14">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-10">
+                <div className="lg:col-span-5">
+                  <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-4">
+                    Factory Controls Under Current Licenses
+                  </span>
+                  <h3 className="font-headline text-3xl md:text-4xl text-primary leading-tight">
+                    The operating systems behind the documents.
+                  </h3>
+                </div>
+                <p className="lg:col-span-7 font-body text-on-surface-variant text-base leading-relaxed">
+                  The licenses are supported by daily controls on the factory floor: batch records,
+                  quality checks, wastewater management, and environmental documentation tied to
+                  legal electroplating operations.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {LICENSE_CONTROL_EVIDENCE.map(({ title, image, alt, body }) => (
+                  <article
+                    key={title}
+                    className="bg-surface-container-lowest border border-outline-variant/10 p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
+                  >
+                    <div className="lg:col-span-5 aspect-[4/5] overflow-hidden bg-surface-container-low">
+                      <img
+                        src={image}
+                        alt={alt}
+                        className="h-full w-full object-cover grayscale-[0.15]"
+                      />
+                    </div>
+                    <div className="lg:col-span-7">
+                      <span className="font-label text-[10px] text-secondary uppercase tracking-[0.2em] mb-3 block">
+                        License Support System
+                      </span>
+                      <h4 className="font-headline text-2xl text-primary mb-4">{title}</h4>
+                      <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+                        {body}
+                      </p>
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>

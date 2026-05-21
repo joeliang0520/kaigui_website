@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
-import { ContactForm } from "@/components/marketing/ContactForm";
 
 const KUNSHAN_METRICS = [
   { value: "RMB 560B", label: "Estimated 2025 GDP" },
@@ -26,8 +25,8 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/20 z-10" />
             <img
               alt="Precision metal manufacturing facility"
-              src="/images/facility-hero.png"
-              className="w-full h-full object-cover object-center grayscale opacity-35"
+              src="/images/kaigui_logo_factory.avif"
+              className="absolute inset-0 h-full w-full object-cover object-center grayscale opacity-35"
             />
           </div>
 
@@ -123,6 +122,21 @@ export default function Home() {
                     </span>
                     <p className="text-on-primary font-headline italic text-2xl mt-2">
                       Operating through a high-compliance industrial threshold.
+                    </p>
+                  </div>
+                </div>
+                <div className="relative mt-5 aspect-[3/2] overflow-hidden bg-surface-container-lowest">
+                  <img
+                    alt="Kunshan city, Jiangsu, China"
+                    src="/images/kunshan.jpg"
+                    className="absolute inset-0 w-full h-full object-cover grayscale-[0.15]"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-primary/75 to-transparent">
+                    <span className="font-label text-on-primary text-[10px] uppercase tracking-widest">
+                      Kunshan City, Jiangsu, China
+                    </span>
+                    <p className="text-on-primary font-body text-sm leading-relaxed mt-2 max-w-sm">
+                      The regional manufacturing hub surrounding KaiGui&apos;s production campus.
                     </p>
                   </div>
                 </div>
@@ -306,18 +320,13 @@ export default function Home() {
                   Our capacity for high-precision bespoke projects is limited. Inquire today to
                   initiate your technical review and reserve factory floor time for the upcoming season.
                 </p>
-                <ContactForm />
-              </div>
-
-              {/* Right ornament */}
-              <div className="hidden xl:block absolute right-24 bottom-24">
-                <div className="border border-on-primary-container/20 p-8">
-                  <span className="material-symbols-outlined text-secondary text-5xl mb-4 block">calendar_month</span>
-                  <div className="font-label text-[10px] text-on-primary-container uppercase tracking-widest">
-                    Current Status
-                  </div>
-                  <div className="text-white font-headline text-xl mt-1">Accepting Nov/Dec Orders</div>
-                </div>
+                <Link
+                  href="/contact"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 bg-secondary px-10 py-4 font-label text-xs uppercase tracking-widest text-on-secondary transition-opacity hover:opacity-90"
+                >
+                  Contact Sales
+                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </Link>
               </div>
             </div>
           </div>
