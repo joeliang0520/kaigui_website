@@ -234,6 +234,19 @@ export default function ProductPage() {
                 Start a Custom Project
                 <span className="material-symbols-outlined text-base">arrow_forward</span>
               </Link>
+
+              <div className="mt-14 max-w-xl">
+                <div className="relative aspect-[1331/433] overflow-hidden bg-surface-container-lowest border border-outline-variant/20">
+                  <img
+                    src="/images/deisgn_booth.avif"
+                    alt="KaiGui custom design booth display"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                </div>
+                <p className="mt-4 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                  Concept review, design translation, and production planning in one workflow.
+                </p>
+              </div>
             </div>
 
             <div className="lg:col-span-7 space-y-8">

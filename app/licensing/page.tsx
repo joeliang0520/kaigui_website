@@ -5,6 +5,7 @@ import { CertificateImage } from "@/components/marketing/CertificateImage";
 
 const COMPLIANCE_CARDS = [
   {
+    id: "plating-control",
     icon: "science",
     title: "In-House Plating Control",
     body: "KaiGui manages electroplating and surface finishing inside its own certified facility, giving customers tighter control over appearance, corrosion resistance, wear performance, and production consistency.",
@@ -12,6 +13,7 @@ const COMPLIANCE_CARDS = [
     metaValue: "Decorative + Functional Plating",
   },
   {
+    id: "environmental-accountability",
     icon: "eco",
     title: "Environmental Accountability",
     body: "Electroplating requires wastewater treatment, discharge monitoring, chemical handling, and documented environmental controls. Our credentials support these obligations at the factory level.",
@@ -19,6 +21,7 @@ const COMPLIANCE_CARDS = [
     metaValue: "Wastewater + Chemical Management",
   },
   {
+    id: "legal-manufacturing-basis",
     icon: "verified_user",
     title: "Legal Manufacturing Basis",
     body: "In China, factories must hold both a pollutant discharge permit and an electroplating operation license to legally perform electroplating. KaiGui holds both documents.",
@@ -140,10 +143,11 @@ export default function LicensingPage() {
         {/* ── Compliance Grid ── */}
         <section className="px-12 py-24 max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/20">
-            {COMPLIANCE_CARDS.map(({ icon, title, body, metaLabel, metaValue }) => (
+            {COMPLIANCE_CARDS.map(({ id, icon, title, body, metaLabel, metaValue }) => (
               <div
+                id={id}
                 key={title}
-                className="bg-surface-bright p-12 flex flex-col justify-between group hover:bg-surface-container-lowest transition-colors"
+                className="scroll-mt-32 bg-surface-bright p-12 flex flex-col justify-between group hover:bg-surface-container-lowest transition-colors"
               >
                 <div>
                   <span className="material-symbols-outlined text-secondary text-3xl mb-8 block">
@@ -164,7 +168,7 @@ export default function LicensingPage() {
         </section>
 
         {/* ── Plating Service Scope ── */}
-        <section className="px-12 pb-24 max-w-[1440px] mx-auto">
+        <section id="surface-finishing-scope" className="scroll-mt-32 px-12 pb-24 max-w-[1440px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
             <div className="lg:col-span-4">
               <span className="font-label text-secondary text-xs uppercase tracking-[0.2em] mb-4 block">
@@ -209,7 +213,7 @@ export default function LicensingPage() {
         </section>
 
         {/* ── Certified Credentials Bento ── */}
-        <section className="px-12 py-24 bg-surface-container-low">
+        <section id="certified-credentials" className="scroll-mt-32 px-12 py-24 bg-surface-container-low">
           <div className="max-w-[1440px] mx-auto">
             <div className="mb-16 grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
               <div className="lg:col-span-6">
@@ -323,7 +327,7 @@ export default function LicensingPage() {
 
             </div>
 
-            <div className="mt-16 border-t border-outline-variant/20 pt-14">
+            <div id="license-support-systems" className="scroll-mt-32 mt-16 border-t border-outline-variant/20 pt-14">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-10">
                 <div className="lg:col-span-5">
                   <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-4">

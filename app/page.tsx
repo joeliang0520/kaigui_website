@@ -202,91 +202,101 @@ export default function Home() {
         {/* ── Technical Capabilities: Asymmetric Bento Grid ── */}
         <section className="py-32 bg-background">
           <div className="container mx-auto px-12">
-            <div className="mb-20 text-center max-w-2xl mx-auto">
-              <span className="font-label text-secondary uppercase tracking-[0.2em] text-xs">Atelier Standards</span>
+            <div className="mb-20 text-center max-w-3xl mx-auto">
+              <span className="font-label text-secondary uppercase tracking-[0.2em] text-xs">Licensed Production Base</span>
               <h2 className="font-headline text-5xl text-primary mt-4">Technical Capabilities</h2>
+              <p className="mt-6 font-body text-on-surface-variant leading-relaxed">
+                KaiGui brings in-house plating, electroplating, and surface finishing under a
+                properly licensed Kunshan manufacturing base built for decorative, functional, and
+                OEM production requirements.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-              {/* Hard Enamel — wide */}
+              {/* In-House Plating Control — wide */}
               <Link
-                href="/hard-enamel"
-                className="md:col-span-2 bg-surface-container-lowest p-12 flex flex-col justify-between border-l border-surface-container-high transition-all hover:bg-white group"
+                href="/licensing#plating-control"
+                className="md:col-span-2 bg-surface-container-lowest p-8 md:p-12 flex flex-col justify-between border-l border-surface-container-high transition-all hover:bg-white group"
               >
                 <div>
-                  <span className="font-label text-[10px] text-outline-variant mb-4 block">01 / FINISHING</span>
-                  <h3 className="font-headline text-3xl mb-6">Hard Enamel Craft</h3>
+                  <span className="font-label text-[10px] text-outline-variant mb-4 block">01 / PLATING CONTROL</span>
+                  <h3 className="font-headline text-3xl mb-6">In-House Plating Control</h3>
                   <p className="font-body text-on-surface-variant text-sm leading-loose max-w-md">
-                    Our signature cloisonné-style finish. Polished to a mirror-smooth surface where
-                    metal and pigment exist in perfect alignment.
+                    KaiGui manages electroplating and surface finishing inside its own certified
+                    facility, keeping quality, color, finish, and timing under direct factory control.
                   </p>
                 </div>
-                <div className="mt-12 flex items-end justify-between">
-                  <div className="text-xs font-label text-secondary uppercase tracking-widest">Explore →</div>
-                  <span className="material-symbols-outlined text-4xl text-surface-container-highest">shutter_speed</span>
+                <div className="mt-10 flex items-end justify-between">
+                  <div className="text-xs font-label text-secondary uppercase tracking-widest">
+                    Decorative + Functional Plating
+                  </div>
+                  <span className="material-symbols-outlined text-4xl text-surface-container-highest">science</span>
                 </div>
               </Link>
 
-              {/* Die Casting — dark */}
+              {/* Legal Manufacturing Basis — dark */}
               <Link
-                href="/die-struck"
-                className="bg-primary text-on-primary p-12 flex flex-col justify-between group"
+                href="/licensing#certified-credentials"
+                className="bg-primary text-on-primary p-8 md:p-10 flex flex-col justify-between group"
               >
                 <div>
-                  <span className="font-label text-[10px] text-on-primary/40 mb-4 block">02 / FORMING</span>
-                  <h3 className="font-headline text-3xl mb-6">Die Casting</h3>
+                  <span className="font-label text-[10px] text-on-primary/40 mb-4 block">02 / LICENSE STACK</span>
+                  <h3 className="font-headline text-3xl mb-6">Legal Manufacturing Basis</h3>
                   <p className="font-body text-on-primary/70 text-sm leading-loose">
-                    High-pressure zinc alloy casting for complex 3D geometries and structural integrity.
+                    In China, compliant plating operations require both pollutant discharge
+                    authorization and electroplating operation licensing.
                   </p>
                 </div>
                 <div className="mt-8 border-t border-on-primary/10 pt-8">
                   <ul className="font-label text-[11px] uppercase tracking-widest space-y-3">
-                    <li>±0.05mm Precision</li>
-                    <li>Custom Tooling</li>
-                    <li>High Volume Scale</li>
+                    <li>Pollutant Discharge Permit</li>
+                    <li>Electroplating Operation License</li>
+                    <li>Kunshan Facility Control</li>
                   </ul>
                 </div>
               </Link>
 
-              {/* Color Match */}
+              {/* Environmental Accountability */}
               <Link
-                href="/soft-enamel"
-                className="bg-surface-container-low p-12 flex flex-col justify-between group"
+                href="/licensing#license-support-systems"
+                className="bg-surface-container-low p-8 md:p-10 flex flex-col justify-between group"
               >
                 <div>
-                  <span className="font-label text-[10px] text-outline-variant mb-4 block">03 / CHROMATICS</span>
-                  <h3 className="font-headline text-2xl mb-6">Color Match</h3>
+                  <span className="font-label text-[10px] text-outline-variant mb-4 block">03 / ENVIRONMENT</span>
+                  <h3 className="font-headline text-2xl mb-6">Environmental Accountability</h3>
                   <p className="font-body text-on-surface-variant text-sm leading-loose">
-                    Exacting Pantone® matching systems utilizing spectral analysis for absolute brand
-                    consistency.
+                    Electroplating requires wastewater treatment, chemical management, discharge
+                    control, and continuous regulatory compliance.
                   </p>
                 </div>
-                <div className="mt-12">
-                  <div className="flex space-x-1">
-                    <div className="w-full h-8 bg-secondary" />
-                    <div className="w-full h-8 bg-primary" />
-                    <div className="w-full h-8 bg-outline" />
-                    <div className="w-full h-8 bg-surface-variant" />
+                <div className="mt-10 flex items-center justify-between">
+                  <div className="font-label text-[10px] uppercase tracking-widest text-secondary">
+                    Wastewater + Chemical Management
                   </div>
+                  <span className="material-symbols-outlined text-3xl text-outline-variant">eco</span>
                 </div>
               </Link>
 
-              {/* Metallurgical Alchemy — wide */}
+              {/* Surface Finishing Scope — wide */}
               <Link
-                href="/hard-enamel"
-                className="md:col-span-2 bg-surface-container-highest/30 p-12 relative overflow-hidden group"
+                href="/licensing#surface-finishing-scope"
+                className="md:col-span-2 bg-surface-container-highest/30 p-8 md:p-12 relative overflow-hidden group"
               >
                 <div className="relative z-10 flex h-full items-center">
-                  <div className="w-1/2">
-                    <span className="font-label text-[10px] text-outline-variant mb-4 block">04 / METALLURGY</span>
-                    <h3 className="font-headline text-3xl mb-4">Metallurgical Alchemy</h3>
-                    <p className="font-body text-on-surface-variant text-sm">
-                      Beyond standard plating. We offer physical vapor deposition (PVD) and custom
-                      patinas for timeless aesthetics.
+                  <div className="max-w-xl">
+                    <span className="font-label text-[10px] text-outline-variant mb-4 block">04 / SURFACE FINISHING</span>
+                    <h3 className="font-headline text-3xl mb-4">KaiGui Plating Services</h3>
+                    <p className="font-body text-on-surface-variant text-sm leading-loose">
+                      A broad in-house finishing scope supports precious decorative finishes,
+                      nickel and chrome systems, antique textures, corrosion protection, and OEM
+                      electroplating programs.
                     </p>
-                    <div className="mt-8 font-label text-[10px] uppercase tracking-widest text-secondary">
-                      Explore Materials →
+                    <div className="mt-8 flex flex-wrap gap-2 font-label text-[10px] uppercase tracking-widest text-secondary">
+                      <span className="border border-outline-variant/30 px-3 py-2">Gold / Silver / Tin</span>
+                      <span className="border border-outline-variant/30 px-3 py-2">Black Nickel / Chrome</span>
+                      <span className="border border-outline-variant/30 px-3 py-2">Antique Series</span>
+                      <span className="border border-outline-variant/30 px-3 py-2">E-Coating / OEM</span>
                     </div>
                   </div>
                 </div>
@@ -310,9 +320,6 @@ export default function Home() {
               </div>
 
               <div className="relative z-10 max-w-2xl">
-                <span className="font-label text-secondary-fixed-dim uppercase tracking-[0.4em] text-xs mb-8 block">
-                  Production Schedule Q4 2024
-                </span>
                 <h2 className="font-headline text-5xl md:text-6xl text-white mb-8">
                   Secure Your Production Slot
                 </h2>
