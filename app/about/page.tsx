@@ -27,7 +27,7 @@ export default function AboutPage() {
 
           <div className="lg:col-span-5 h-[400px] bg-surface-container-low overflow-hidden relative group">
             <img
-              src="/images/facility-hero.png"
+              src="/images/about-hero-facility.png"
               alt="KaiGui manufacturing facility"
               className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
@@ -67,7 +67,7 @@ export default function AboutPage() {
 
             <div className="bg-surface-container-low min-h-[400px] relative overflow-hidden">
               <img
-                src="/images/facility-hero.png"
+                src="/images/about-heritage-workshop.png"
                 alt="KaiGui heritage"
                 className="w-full h-full object-cover"
               />
@@ -168,7 +168,7 @@ export default function AboutPage() {
         <section className="relative py-24 mb-16">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img
-              src="/images/facility-hero.png"
+              src="/images/about-tom-message-background.png"
               alt=""
               aria-hidden
               className="w-full h-full object-cover opacity-20"

@@ -55,7 +55,7 @@ export default function LicensingPage() {
               <div className="aspect-[4/5] bg-surface-container-lowest rounded-sm overflow-hidden shadow-sm">
                 <img
                   alt="Electroplating Process"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV0HtHerso4Renh5qJfgXfAshUqwKzAyjdP6rfydSDt5axBj1oPbMEC6FS_uZtDL_c8ALnMk9ics-pj0DYrSo3M-fHxsOWDg-W5vS_QHE5ppHbFjJL3SqcHYGmFzcsOBk6O3eAT-roB5ds6sXGs6OZ1Qotfx1E_lRhPkR31VaWe8gu7faDk0zaI62uWd9aYwEZaR5V8kcz8EuTXd6pP9HyRKxPadxlo8ShJqKpuKQJz1y2W8DxL1IwddlzD9YlSevtDjVjWo8gSow"
+                  src="/images/licensing-electroplating-process.png"
                   className="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-700"
                 />
               </div>
@@ -119,7 +119,7 @@ export default function LicensingPage() {
               <div className="md:col-span-8 bg-surface-container-lowest p-8 flex flex-col md:flex-row gap-8 items-center border border-outline-variant/10">
                 <div className="w-full md:w-1/3">
                   <CertificateImage
-                    src="/certificates/pollutant-discharge-permit.png"
+                    src="/images/pollutant-discharge-permit.png"
                     alt="KaiGui Pollutant Discharge Permit"
                     aspectClass="aspect-[3/4]"
                     hoverLabel="VIEW DOCUMENT"
@@ -162,7 +162,7 @@ export default function LicensingPage() {
                   </p>
                 </div>
                 <CertificateImage
-                  src="/certificates/electroplating-compliance-certificate.png"
+                  src="/images/electroplating-compliance-certificate.png"
                   alt="Suzhou Electroplating Enterprise Compliance Certificate"
                   aspectClass="aspect-square"
                   hoverLabel="PREVIEW"

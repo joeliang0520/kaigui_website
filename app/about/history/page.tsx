@@ -63,7 +63,7 @@ export default function HistoryPage() {
                 <div className="my-12 relative h-[400px] bg-surface-container-low overflow-hidden rounded-sm">
                   <img
                     alt="Early electroplating facility"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDmsullQuITUOvx14f64z7ZG1Xckxo9t6jCaa-dLjZSbYXJoJrM6ejeYWHt9do2U1ndukva6LQCN2JDIqfp44F-VdUFolUzY6mdMa7trz-CHrE9h8MDDu9Cdh2kE606yh6wWd-cyK8SAVH3Y_lAXD9JXqFC1s_TLqnaoNLzqqbX0PNPCjpwMsEWw1h4hn5zDyXFyZy44cEuD73MHksUJBajftyCG3f3_KjMqhW1OWmMQ3uTzMvZiVP_8IV-yPSCM4jeXw0B4GRMjs"
+                    src="/images/history-foundation.png"
                     className="w-full h-full object-cover grayscale opacity-80"
                   />
                   <div className="absolute bottom-6 left-6 bg-surface-container-lowest/80 backdrop-blur-md p-4 max-w-xs">
@@ -101,14 +101,14 @@ export default function HistoryPage() {
                     <div className="aspect-[3/4] bg-surface-container overflow-hidden rounded-sm">
                       <img
                         alt="Kunshan manufacturing district"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJMvedxAtouj6slOyaZdguLNZohk7KTDSg4PrnHY9hDf-mBmGVSrcnAIMvPX76-pl23JfNx9zwuy1dgwxIwITWOdYFLJXWN-MARNkKSZ1z8uEz2tsaUzolCG8t3RpMUNYHWpw4oG4h-blCpN7wepoxptf_4AmnLpT6gdrp5CZhZMf_9HRKkv8NlnKBrAv8wKZNKVNGdrmKeI95nuLhP1sfnQ44ps-oN4KrbgL8TUsWLThapbKVqoxHKUzRX5y9uCYBGnSeOFpjg8k"
+                        src="/images/history-kunshan-district.png"
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="aspect-[3/4] bg-surface-container overflow-hidden rounded-sm mt-12">
                       <img
                         alt="Gold plating detail"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR0xbvwhQ92UCbhIH6VZe35fcjhLh_5SuQx9vbVKkXW_EObyDD6JmYS9UFbNvetDbl8WYa1HAKMHZVa2rOZ5MBz9RiXruF3HlMTXLQIGISvFQAecC6PhFdICaYP84eLAnVw9R_114KKXqyg9c8H-3RsET9OKRh7OvILt53G0TYfE-_9AOHFuMaI4_5OAIh-zzQTRSWeRgYWt-ddHoDLqUp6yJQaGnlRsy5NKWvODy8zc7PN1thV1BhV6wFbYDKcJIZT-YsBJfsAjw"
+                        src="/images/history-plating-detail.png"
                         className="w-full h-full object-cover"
                       />
                     </div>

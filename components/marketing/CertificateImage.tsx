@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 interface CertificateImageProps {
-  /** Path under /public, e.g. "/certificates/pollutant-discharge-permit.jpg" */
+  /** Path under /public, e.g. "/images/pollutant-discharge-permit.png" */
   src: string;
   alt: string;
   /** Tailwind aspect-ratio class for the card preview, e.g. "aspect-[3/4]" */

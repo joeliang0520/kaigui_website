@@ -46,7 +46,7 @@ export default function SecondGenerationPage() {
             <div className="md:col-span-5 space-y-12">
               <div className="aspect-[4/5] bg-surface-container-low overflow-hidden group">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuC51guZ1rTdhX0c8XhSrVWQeWlSsgLgnhwYqQ-aEd6zF0-ggbK6aZiKsGmBxLM6Ip-31fRISDDV3R6vvyPBcI2_JOSScgqxHDtDWmqr1csqfgUva6xJi9gI1CTvTGKkg7ER-ncDhxoKm3sR0Et3tvuAwR5erPd11FGfroo_NhBlboN5KKa9A6PjVMFSflWRWr27Rq7B6S0JJB205rqYzoEzcpJetD3ayvbCG5aRHy9_w4DpIjiLSEKBfkNRIofgc4LYBTfwd-4wj4M"
+                  src="/images/tom-portrait.png"
                   alt="KaiGui manufacturing precision"
                   className="w-full h-full object-cover grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />

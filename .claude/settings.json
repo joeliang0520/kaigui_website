@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(curl -sL \"https://api.anthropic.com/v1/design/h/GMiNok2YWwteihAqtCvRPw\" -o design_index.html -w \"HTTP %{http_code} | size %{size_download} bytes | type %{content_type}\\\\n\")",
+      "Bash(tar -tzf design_index.html)",
+      "Bash(tar -xzf design_index.html -C design_pkg)",
+      "Bash(npx next *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

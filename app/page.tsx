@@ -114,7 +114,7 @@ export default function Home() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-surface-container-lowest">
                   <img
                     alt="KaiGui precision manufacturing floor in Kunshan"
-                    src="/images/facility-hero.png"
+                    src="/images/kunshan-production-campus.png"
                     className="absolute inset-0 w-full h-full object-cover grayscale-[0.2]"
                   />
                   <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-primary/80 to-transparent">

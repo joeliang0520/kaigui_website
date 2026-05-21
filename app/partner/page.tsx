@@ -153,6 +153,12 @@ export default function PartnerPage() {
               >
                 View Capabilities
               </Link>
+              <Link
+                href="/product"
+                className="px-10 py-4 border border-outline-variant text-primary font-label text-xs uppercase tracking-widest hover:bg-surface-container-low transition-colors"
+              >
+                View Products
+              </Link>
             </div>
           </div>
         </section>

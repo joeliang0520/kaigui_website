@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/product", label: "Product" },
   { href: "/about", label: "About" },
-  { href: "/licensing", label: "Licensing" },
+  { href: "/licensing", label: "Capabilities" },
 ];
 
 export function SiteNav() {

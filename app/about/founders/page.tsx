@@ -38,7 +38,7 @@ export default function FoundersPage() {
             <div className="md:w-1/2 relative">
               <div className="aspect-[4/5] bg-surface-container-low overflow-hidden rounded-sm">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUsBPhz_5FZD3Pm2FrCbntznDMJ0n0-EaQm1jEm0NfB2ppFyrev9yzZ_W3axKWkycGLFkk9AC0xqGCaxdUdy03h6UUDyLasalrMibqkO6NuyzF4uoew_HMemVDnblxVAFjj6ZdZNAzu6ieDLq3NmcZiTJIRViwPxdn3yffdd6VbuENjExsmo1_Vt64nV-BTnkZ4sV0-bbXvx7dxnDKzAbtMGJoHXepnUp6zEGs4yml6NepMuPWIl2aa804HMUQCTXtlCF2rx0qkZI"
+                  src="/images/founders-hero.png"
                   alt="Precision Craftsmanship"
                   className="w-full h-full object-cover mix-blend-multiply opacity-80"
                 />
@@ -63,7 +63,7 @@ export default function FoundersPage() {
               <div className="bg-primary-container p-1 rounded-sm overflow-hidden">
                 <img
                   alt="Mr. Lee"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB97kSlvoWV82SyJRnjePL9alBCEcJhWRnwQUsbkAU8--uKRXebN5w9wOCinkEhuFBfmc00yTtdYGjJJY9e_QmafaVbhNIl262Idi8Iuq-MvG4RgZA94iwARh4zi-lOqRbaJ6dCC0t37knAaClDmv_jYxeAFDEAh8NVKGBage1l5vWor2v6npoNOtpGgagMNWe6yoAVx7GdLl9xQOTnsZya7cf9Jbv-yrZOH0A2ork0Y6ccOcv7JFySKJ8xysXRP5UrZ53gZj9rn2Q"
+                  src="/images/founder-mr-lee.png"
                   className="w-full grayscale contrast-125 hover:grayscale-0 transition-all duration-700 aspect-[3/4] object-cover rounded-sm"
                 />
               </div>
@@ -119,7 +119,7 @@ export default function FoundersPage() {
               <div className="bg-surface-container-high p-1 rounded-sm overflow-hidden">
                 <img
                   alt="Nancy Jan"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0GF0uLTp73YXZl_w7JbNsw_I00RNOQ-XU8w0p1BvPAnmLAaRWgGFBqJtrktUY42Ec5PXKxnHgpQOlsKgyWrAAz0VkTDbbfmR4Bwmh-lpzjfwbA80c46sDWI4kcT-ynY8xhfoNhwX64CitQ1GnVFaQhbBCUz60ITI22YKp9onRw87XMClYN8jaIBPIC3FVLutZ4ReJI4gTz3vN42JIHm5M1gbUCKcW_qqQ_Ew3-v9DoE8g7Mx6AeBw0j-okT05F7B4HLlqzB-eD8U"
+                  src="/images/founder-nancy-jan.png"
                   className="w-full grayscale contrast-110 hover:grayscale-0 transition-all duration-700 aspect-[3/4] object-cover rounded-sm"
                 />
               </div>
