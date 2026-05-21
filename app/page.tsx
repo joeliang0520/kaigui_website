@@ -3,6 +3,15 @@ import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { ContactForm } from "@/components/marketing/ContactForm";
 
+const KUNSHAN_METRICS = [
+  { value: "RMB 560B", label: "Estimated 2025 GDP" },
+  { value: "RMB 1.3T+", label: "Industrial output above designated size" },
+  { value: "RMB 824.8B", label: "Total import and export volume" },
+  { value: "10,000", label: "Foreign-invested projects" },
+  { value: "USD 120B+", label: "Total foreign investment" },
+  { value: "48", label: "Fortune Global 500 companies attracted" },
+];
+
 export default function Home() {
   return (
     <div className="bg-background text-on-surface min-h-screen font-body">
@@ -11,67 +20,30 @@ export default function Home() {
       <main className="pt-24">
 
         {/* ── Hero ── */}
-        <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-surface">
+        <section className="relative min-h-[88vh] flex items-center overflow-hidden bg-surface">
           {/* Cinematic background image */}
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/20 z-10" />
             <img
               alt="Precision metal manufacturing facility"
               src="/images/facility-hero.png"
-              className="w-full h-full object-cover object-center grayscale opacity-30"
+              className="w-full h-full object-cover object-center grayscale opacity-35"
             />
           </div>
 
-          <div className="container mx-auto px-12 py-24 relative z-20">
-            <div className="max-w-5xl">
-              <span className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-6 block">
-                Direct-to-Factory Excellence
+          <div className="container mx-auto px-6 md:px-12 py-28 md:py-36 relative z-20">
+            <div className="max-w-4xl">
+              <span className="font-label text-secondary uppercase tracking-[0.3em] text-xs mb-8 block">
+                Kunshan Manufacturing Proof
               </span>
-              <h1 className="font-headline text-5xl md:text-7xl text-primary leading-tight mb-8">
+              <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl text-primary leading-[1.02] mb-8">
                 Built in Kunshan. <br />
                 <em className="italic">Proven by Compliance.</em>
               </h1>
-              <div className="font-body text-base md:text-lg text-on-surface-variant max-w-4xl leading-relaxed mb-12 space-y-5">
-                <p>
-                  Since 1992, KaiGui Ornament has operated in Kunshan, one of China&apos;s most
-                  competitive, export-oriented, and highly regulated manufacturing hubs.
-                </p>
-                <p>
-                  Kunshan is not an ordinary industrial city. In 2025, Kunshan&apos;s GDP was estimated
-                  at around RMB 560 billion, with its total industrial output above designated size
-                  exceeding RMB 1.3 trillion and total import and export volume reaching approximately
-                  RMB 824.8 billion. The city has also ranked among China&apos;s strongest county-level
-                  economies for more than two decades.
-                </p>
-                <p>
-                  Kunshan has attracted a dense concentration of foreign-invested enterprises,
-                  advanced manufacturing projects, and Fortune Global 500 companies. Public reports
-                  show that Kunshan is home to nearly 10,000 foreign-invested projects from more than
-                  80 countries and regions, with total foreign investment exceeding USD 120 billion.
-                  It has also attracted 48 Fortune Global 500 companies, which have established more
-                  than 100 projects in the city.
-                </p>
-                <p>
-                  This creates a business environment where only capable, disciplined, and compliant
-                  manufacturers can survive long term. Industrial investment in Kunshan carries a high
-                  entry threshold. Public land-use standards generally require new industrial projects
-                  to reach an investment intensity of approximately RMB 6 million per mu, and up to
-                  RMB 6.5 million per mu in higher-level development zones. For a 15-mu industrial
-                  site, this represents an estimated fixed-asset investment threshold of roughly RMB
-                  90 million to RMB 97.5 million.
-                </p>
-                <p>
-                  For an electroplating factory, the barrier is even higher. Beyond capital
-                  investment, electroplating requires environmental permits, wastewater treatment
-                  capability, discharge control, chemical management, and continuous regulatory
-                  compliance.
-                </p>
-                <p>
-                  KaiGui&apos;s ability to operate in Kunshan for more than three decades is proof of
-                  more than manufacturing capacity. It is proof of compliance, resilience,
-                  environmental responsibility, and long-term supply chain reliability.
-                </p>
-              </div>
+              <p className="font-body text-lg md:text-2xl text-on-surface-variant max-w-3xl leading-relaxed mb-12">
+                Since 1992, KaiGui Ornament has operated in Kunshan, one of China&apos;s most
+                competitive, export-oriented, and highly regulated manufacturing hubs.
+              </p>
               <div className="flex flex-wrap gap-4">
                 <Link
                   href="/partner"
@@ -92,87 +64,123 @@ export default function Home() {
           {/* Technical detail ornament */}
           <div className="absolute bottom-12 right-12 hidden lg:block">
             <div className="font-label text-[10px] text-outline uppercase tracking-widest leading-loose text-right">
-              Establishment No. 1992<br />
+              Operating Since 1992<br />
               Kunshan Development Zone<br />
               31° 23′ 31″ N / 120° 57′ 04″ E
             </div>
           </div>
         </section>
 
-        {/* ── Kunshan Manufacturing Hub ── */}
-        <section className="py-32 bg-surface-container-low">
-          <div className="container mx-auto px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-
-              <div className="lg:col-span-5">
-                <h2 className="font-headline text-5xl text-primary mb-8 leading-tight">
-                  Kunshan Manufacturing Hub
+        {/* ── Kunshan Proof Section ── */}
+        <section className="py-28 md:py-36 bg-surface-container-low">
+          <div className="container mx-auto px-6 md:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-start">
+              <div className="lg:col-span-4">
+                <span className="font-label text-secondary uppercase tracking-[0.2em] text-xs">
+                  Industrial Context
+                </span>
+                <h2 className="font-headline text-4xl md:text-5xl text-primary mt-5 leading-tight">
+                  Kunshan is not an ordinary industrial city.
                 </h2>
-                <p className="font-body text-on-surface-variant mb-12 text-lg leading-relaxed">
-                  Our flagship facility represents the pinnacle of modern ornament production. We
-                  don&apos;t just manufacture; we engineer precision components that carry your brand&apos;s
-                  identity across the globe.
+              </div>
+
+              <div className="lg:col-span-8">
+                <p className="font-body text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-4xl">
+                  In 2025, Kunshan&apos;s GDP was estimated at around RMB 560 billion, with its
+                  total industrial output above designated size exceeding RMB 1.3 trillion and total
+                  import and export volume reaching approximately RMB 824.8 billion. The city has
+                  also ranked among China&apos;s strongest county-level economies for more than two
+                  decades.
                 </p>
-
-                <div className="space-y-8">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-surface-container-lowest flex items-center justify-center rounded-sm">
-                      <span className="material-symbols-outlined text-secondary">verified</span>
-                    </div>
-                    <div>
-                      <h4 className="font-label font-bold text-sm uppercase tracking-wider">ISO 14001:2015</h4>
-                      <p className="text-xs text-on-surface-variant font-body">Global environment system in place.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-surface-container-lowest flex items-center justify-center rounded-sm">
-                      <span className="material-symbols-outlined text-secondary">precision_manufacturing</span>
-                    </div>
-                    <div>
-                      <h4 className="font-label font-bold text-sm uppercase tracking-wider">ISO 9001:2015</h4>
-                      <p className="text-xs text-on-surface-variant font-body">Global quality management systems in place.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-surface-container-lowest flex items-center justify-center rounded-sm">
-                      <span className="material-symbols-outlined text-secondary">layers</span>
-                    </div>
-                    <div>
-                      <h4 className="font-label font-bold text-sm uppercase tracking-wider">In-House Plating</h4>
-                      <p className="text-xs text-on-surface-variant font-body">Proprietary electroplating tanks for gold, silver, nickel.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-surface-container-lowest flex items-center justify-center rounded-sm">
-                      <span className="material-symbols-outlined text-secondary">history_edu</span>
-                    </div>
-                    <div>
-                      <h4 className="font-label font-bold text-sm uppercase tracking-wider">50+ Years Expertise</h4>
-                      <p className="text-xs text-on-surface-variant font-body">Half a century of metallurgical engineering heritage.</p>
-                    </div>
-                  </div>
-                </div>
               </div>
+            </div>
 
-              <div className="lg:col-span-7">
-                <div className="relative aspect-video rounded-sm overflow-hidden group shadow-2xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-outline-variant/20 mt-16">
+              {KUNSHAN_METRICS.map(({ value, label }) => (
+                <div
+                  key={label}
+                  className="bg-surface-container-lowest px-8 py-10 min-h-[160px] flex flex-col justify-between"
+                >
+                  <span className="font-headline text-4xl md:text-5xl text-primary">{value}</span>
+                  <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mt-8">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-24 grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
+              <div className="lg:col-span-5">
+                <div className="relative aspect-[4/5] overflow-hidden bg-surface-container-lowest">
                   <img
-                    alt="KaiGui Facility"
+                    alt="KaiGui precision manufacturing floor in Kunshan"
                     src="/images/facility-hero.png"
-                    className="w-full h-full object-cover grayscale-[0.2] transition-transform duration-700 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover grayscale-[0.2]"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-primary/80 to-transparent">
+                  <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-primary/80 to-transparent">
                     <span className="font-label text-on-primary text-[10px] uppercase tracking-widest">
-                      Main Production Campus
+                      Kunshan Production Campus
                     </span>
-                    <p className="text-on-primary font-headline italic mt-1">45,000 SQM Floor Space</p>
+                    <p className="text-on-primary font-headline italic text-2xl mt-2">
+                      Operating through a high-compliance industrial threshold.
+                    </p>
                   </div>
                 </div>
               </div>
 
+              <div className="lg:col-span-7 space-y-14">
+                <div className="border-t border-outline-variant/30 pt-8">
+                  <h3 className="font-headline text-3xl text-primary mb-5">
+                    Foreign-invested manufacturing density
+                  </h3>
+                  <p className="font-body text-on-surface-variant text-lg leading-relaxed">
+                    Kunshan has attracted a dense concentration of foreign-invested enterprises,
+                    advanced manufacturing projects, and Fortune Global 500 companies. Public reports
+                    show that Kunshan is home to nearly 10,000 foreign-invested projects from more
+                    than 80 countries and regions, with total foreign investment exceeding USD 120
+                    billion. It has also attracted 48 Fortune Global 500 companies, which have
+                    established more than 100 projects in the city.
+                  </p>
+                </div>
+
+                <div className="border-t border-outline-variant/30 pt-8">
+                  <h3 className="font-headline text-3xl text-primary mb-5">
+                    High entry threshold
+                  </h3>
+                  <p className="font-body text-on-surface-variant text-lg leading-relaxed">
+                    This creates a business environment where only capable, disciplined, and compliant
+                    manufacturers can survive long term. Industrial investment in Kunshan carries a
+                    high entry threshold. Public land-use standards generally require new industrial
+                    projects to reach an investment intensity of approximately RMB 6 million per mu,
+                    and up to RMB 6.5 million per mu in higher-level development zones. For a 15-mu
+                    industrial site, this represents an estimated fixed-asset investment threshold of
+                    roughly RMB 90 million to RMB 97.5 million.
+                  </p>
+                </div>
+
+                <div className="border-t border-outline-variant/30 pt-8">
+                  <h3 className="font-headline text-3xl text-primary mb-5">
+                    Electroplating raises the bar further
+                  </h3>
+                  <p className="font-body text-on-surface-variant text-lg leading-relaxed">
+                    For an electroplating factory, the barrier is even higher. Beyond capital
+                    investment, electroplating requires environmental permits, wastewater treatment
+                    capability, discharge control, chemical management, and continuous regulatory
+                    compliance.
+                  </p>
+                </div>
+
+                <div className="bg-primary text-on-primary px-8 md:px-10 py-10">
+                  <h3 className="font-headline text-3xl md:text-4xl mb-6">
+                    Long-term operation is the evidence.
+                  </h3>
+                  <p className="font-body text-on-primary-container text-lg leading-relaxed">
+                    KaiGui&apos;s ability to operate in Kunshan for more than three decades is proof
+                    of more than manufacturing capacity. It is proof of compliance, resilience,
+                    environmental responsibility, and long-term supply chain reliability.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
