@@ -213,29 +213,31 @@ export default function ProductPage() {
         className="bg-surface-container-low py-24 md:py-32"
       >
         <div className="max-w-[1920px] mx-auto px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-5">
-              <span className="font-label text-secondary text-xs uppercase tracking-[0.2em]">
-                Have an Idea Only?
-              </span>
-              <h2 className="font-headline text-5xl md:text-7xl text-primary leading-tight mt-5">
-                No worries, we cover the rest.
-              </h2>
-              <p className="mt-8 text-on-surface-variant text-lg leading-relaxed max-w-xl">
-                Send a logo, sketch, reference photo, or simple concept. Our team
-                develops the design, prepares artwork for production, confirms the
-                prototype, manages manufacturing, and delivers finished pieces with
-                tracking and follow-up support.
-              </p>
-              <Link
-                href="/contact"
-                className="mt-10 inline-flex min-h-12 items-center justify-center gap-2 bg-primary px-8 py-4 font-label text-xs uppercase tracking-widest text-on-primary transition-opacity hover:opacity-90"
-              >
-                Start a Custom Project
-                <span className="material-symbols-outlined text-base">arrow_forward</span>
-              </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch">
+            <div className="lg:col-span-5 flex h-full flex-col">
+              <div>
+                <span className="font-label text-secondary text-xs uppercase tracking-[0.2em]">
+                  Have an Idea Only?
+                </span>
+                <h2 className="font-headline text-5xl md:text-7xl text-primary leading-tight mt-5">
+                  No worries, we cover the rest.
+                </h2>
+                <p className="mt-8 text-on-surface-variant text-lg leading-relaxed max-w-xl">
+                  Send a logo, sketch, reference photo, or simple concept. Our team
+                  develops the design, prepares artwork for production, confirms the
+                  prototype, manages manufacturing, and delivers finished pieces with
+                  tracking and follow-up support.
+                </p>
+                <Link
+                  href="/contact"
+                  className="mt-10 inline-flex min-h-12 items-center justify-center gap-2 bg-primary px-8 py-4 font-label text-xs uppercase tracking-widest text-on-primary transition-opacity hover:opacity-90"
+                >
+                  Start a Custom Project
+                  <span className="material-symbols-outlined text-base">arrow_forward</span>
+                </Link>
+              </div>
 
-              <div className="mt-14 max-w-xl">
+              <div className="mt-auto max-w-xl pt-14">
                 <div className="relative aspect-[1331/433] overflow-hidden bg-surface-container-lowest border border-outline-variant/20">
                   <img
                     src="/images/deisgn_booth.avif"
@@ -249,8 +251,8 @@ export default function ProductPage() {
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20">
+            <div className="lg:col-span-7">
+              <div className="grid h-full grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20">
                 {SERVICE_SCOPE.map(({ title, detail, icon }) => (
                   <article
                     key={title}
@@ -270,22 +272,62 @@ export default function ProductPage() {
                   </article>
                 ))}
               </div>
+            </div>
+          </div>
 
-              <div className="bg-primary text-on-primary p-8 md:p-10">
+          <div className="mt-12 relative overflow-hidden border border-outline-variant/20 bg-surface-container-lowest p-8 md:p-10 text-on-surface">
+            <div
+              className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-secondary to-transparent opacity-70"
+              aria-hidden="true"
+            />
+            <div className="relative z-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+              <div>
                 <span className="font-label text-secondary text-xs uppercase tracking-[0.2em]">
                   Process Flow
                 </span>
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-                  {CUSTOM_DESIGN_STEPS.map(({ step, title, detail }) => (
-                    <div key={title} className="border-t border-on-primary/20 pt-5">
-                      <span className="font-label text-secondary text-[10px] uppercase tracking-widest">
-                        {step}
-                      </span>
-                      <h3 className="mt-3 font-headline text-2xl">{title}</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-on-primary/75">
-                        {detail}
-                      </p>
-                    </div>
+                <h3 className="mt-4 font-headline text-3xl text-primary">
+                  From approved artwork to delivered goods.
+                </h3>
+              </div>
+              <span className="font-label text-[10px] uppercase tracking-[0.25em] text-on-surface-variant">
+                Clear 1-6 production pipeline
+              </span>
+            </div>
+
+            <div className="relative z-10 mt-10 overflow-x-auto no-scrollbar pb-2">
+              <div className="relative min-w-[1180px]">
+                <div
+                  className="absolute left-6 right-6 top-[30px] h-px bg-outline-variant/50"
+                  aria-hidden="true"
+                >
+                  <div className="pipeline-flow-light absolute left-0 top-1/2 h-px w-28 -translate-y-1/2 bg-gradient-to-r from-transparent via-secondary to-transparent" />
+                </div>
+
+                <div className="grid grid-cols-6 gap-4">
+                  {CUSTOM_DESIGN_STEPS.map(({ step, title, detail }, index) => (
+                    <article
+                      key={title}
+                      className="pipeline-step group relative pt-16"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="absolute left-0 top-0 z-10 flex h-[60px] w-[60px] items-center justify-center border border-secondary/70 bg-white font-label text-lg text-primary shadow-[0_0_0_8px_rgba(255,255,255,1)]">
+                        {Number(step)}
+                      </div>
+                      <div className="min-h-[240px] border border-outline-variant/20 bg-white p-5 transition-colors group-hover:border-secondary/60">
+                        <span className="font-label text-[10px] uppercase tracking-[0.22em] text-secondary">
+                          Step {Number(step)}
+                        </span>
+                        <h4 className="mt-4 font-headline text-xl leading-tight text-primary">
+                          {title}
+                        </h4>
+                        <p className="mt-4 text-xs leading-relaxed text-on-surface-variant">
+                          {detail}
+                        </p>
+                        <span className="material-symbols-outlined mt-6 block text-xl text-secondary transition-transform group-hover:translate-x-1">
+                          arrow_forward
+                        </span>
+                      </div>
+                    </article>
                   ))}
                 </div>
               </div>
