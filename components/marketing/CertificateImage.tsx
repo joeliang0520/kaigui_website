@@ -60,7 +60,7 @@ export function CertificateImage({
           role="dialog"
           aria-modal="true"
           aria-label={alt}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-primary/90 backdrop-blur-sm p-6 md:p-12 cursor-zoom-out"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-primary/90 backdrop-blur-sm p-4 md:p-8 cursor-zoom-out"
         >
           <button
             type="button"
@@ -70,12 +70,16 @@ export function CertificateImage({
           >
             <span className="material-symbols-outlined">close</span>
           </button>
-          <img
-            src={src}
-            alt={alt}
+          <div
             onClick={(e) => e.stopPropagation()}
-            className="max-w-full max-h-full object-contain shadow-2xl cursor-default"
-          />
+            className="flex max-h-[calc(100vh-5rem)] max-w-[calc(100vw-2rem)] items-center justify-center overflow-hidden md:max-w-[calc(100vw-4rem)]"
+          >
+            <img
+              src={src}
+              alt={alt}
+              className="max-h-[calc(100vh-5rem)] max-w-full object-contain shadow-2xl cursor-default"
+            />
+          </div>
         </div>
       )}
     </>

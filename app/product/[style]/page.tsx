@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 import { SiteNav } from "@/components/marketing/SiteNav";
+import { ProductGallery } from "@/components/marketing/ProductGallery";
 import { PIN_STYLES, SLUG_TO_STYLE } from "@/lib/pinConfig";
 import { PRODUCT_DETAILS } from "@/lib/productCatalog";
 
@@ -121,7 +122,7 @@ export default function ProductDetailPage({ params }: { params: { style: string 
         </section>
 
         <section className="max-w-[1920px] mx-auto px-6 md:px-12 py-24">
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-12">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-7 mb-12">
             <div>
               <span className="font-label text-secondary text-xs uppercase tracking-[0.2em]">
                 Gallery
@@ -130,31 +131,9 @@ export default function ProductDetailPage({ params }: { params: { style: string 
                 Real World Product References
               </h2>
             </div>
-            <p className="text-on-surface-variant max-w-md leading-relaxed">
-              Finished samples, close-up surface details, and production-ready presentation
-              references for this product family.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {detail.gallery.map((image) => (
-              <figure
-                key={image.src}
-                className="bg-surface-container-lowest border border-outline-variant/10 overflow-hidden"
-              >
-                <div className="relative aspect-[4/3] bg-surface-container-low overflow-hidden">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
-                <figcaption className="p-5 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-                  {image.caption}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <ProductGallery productLabel={style.label} styleSlug={style.slug} />
         </section>
       </main>
 

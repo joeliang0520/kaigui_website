@@ -13,20 +13,25 @@ const COMPLIANCE_CARDS = [
     metaValue: "Decorative + Functional Plating",
   },
   {
-    id: "environmental-accountability",
-    icon: "eco",
-    title: "Environmental Accountability",
-    body: "Electroplating requires wastewater treatment, discharge monitoring, chemical handling, and documented environmental controls. Our credentials support these obligations at the factory level.",
-    metaLabel: "Controlled Area",
-    metaValue: "Wastewater + Chemical Management",
-  },
-  {
     id: "legal-manufacturing-basis",
     icon: "verified_user",
     title: "Legal Manufacturing Basis",
     body: "In China, factories must hold both a pollutant discharge permit and an electroplating operation license to legally perform electroplating. KaiGui holds both documents.",
     metaLabel: "Required License Stack",
     metaValue: "Pollutant Permit + Plating License",
+  },
+];
+
+const ENVIRONMENTAL_ACCOUNTABILITY_IMAGES = [
+  {
+    src: "/images/factory/廢氣塔(楼顶）.png",
+    alt: "Rooftop exhaust tower supporting KaiGui electroplating air-emission control",
+    label: "Rooftop Exhaust Tower",
+  },
+  {
+    src: "/images/factory/廢水處理（2）.png",
+    alt: "Wastewater treatment equipment supporting KaiGui electroplating operations",
+    label: "Wastewater Treatment Area",
   },
 ];
 
@@ -75,21 +80,6 @@ const PLATING_GROUPS = [
   },
 ];
 
-const LICENSE_CONTROL_EVIDENCE = [
-  {
-    title: "Quality Control",
-    image: "/images/factory-tour-quality-control.png",
-    alt: "KaiGui quality control display from the factory tour",
-    body: "Inspection discipline, controlled production records, and batch-level review keep custom work aligned with approved samples.",
-  },
-  {
-    title: "Environmental Control",
-    image: "/images/factory-tour-environmental-control.png",
-    alt: "KaiGui environmental control display from the factory tour",
-    body: "Licensed plating operations depend on wastewater treatment, emission control, and documented environmental management.",
-  },
-];
-
 export default function LicensingPage() {
   return (
     <div className="bg-background text-on-surface min-h-screen font-body selection:bg-secondary-container selection:text-on-secondary-container">
@@ -98,9 +88,18 @@ export default function LicensingPage() {
       <main className="min-h-screen pt-24">
 
         {/* ── Hero ── */}
-        <section className="relative px-12 py-24 md:py-32 overflow-hidden bg-surface-container-low">
-          <div className="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-7">
+        <section className="relative px-6 md:px-12 py-24 md:py-36 overflow-hidden bg-surface-container-low">
+          <img
+            alt=""
+            aria-hidden
+            src="/images/licensing-electroplating-process.png"
+            className="absolute inset-0 h-full w-full object-cover object-center grayscale-[0.1] opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/78 via-background/60 to-background/15" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-background/5" />
+
+          <div className="relative z-10 max-w-[1440px] mx-auto">
+            <div className="max-w-3xl">
               <span className="font-label text-secondary text-xs uppercase tracking-[0.2em] mb-4 block">
                 Regulatory Framework
               </span>
@@ -113,24 +112,7 @@ export default function LicensingPage() {
                 We balance precision manufacturing with rigorous environmental and legal standards
                 from our Kunshan facility.
               </p>
-            </div>
-            <div className="md:col-span-5 relative">
-              <div className="aspect-[4/5] bg-surface-container-lowest rounded-sm overflow-hidden shadow-sm">
-                <img
-                  alt="Electroplating Process"
-                  src="/images/licensing-electroplating-process.png"
-                  className="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-              <div
-                className="absolute -bottom-6 -left-6 p-6 max-w-[240px]"
-                style={{
-                  background: "rgba(255,255,255,0.7)",
-                  backdropFilter: "blur(16px)",
-                  WebkitBackdropFilter: "blur(16px)",
-                  border: "1px solid rgba(198,198,204,0.15)",
-                }}
-              >
+              <div className="mt-12 inline-block bg-white/70 backdrop-blur-xl border border-white/50 p-6 max-w-[240px]">
                 <p className="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">
                   Facility Status
                 </p>
@@ -142,7 +124,7 @@ export default function LicensingPage() {
 
         {/* ── Compliance Grid ── */}
         <section className="px-12 py-24 max-w-[1440px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-outline-variant/20">
             {COMPLIANCE_CARDS.map(({ id, icon, title, body, metaLabel, metaValue }) => (
               <div
                 id={id}
@@ -164,6 +146,81 @@ export default function LicensingPage() {
                 </div>
               </div>
             ))}
+          </div>
+
+          <div
+            id="environmental-accountability"
+            className="scroll-mt-32 mt-8 grid grid-cols-1 lg:grid-cols-12 overflow-hidden bg-surface-bright border border-outline-variant/10"
+          >
+            <div className="lg:col-span-4 p-8 md:p-10 flex flex-col justify-between">
+              <div>
+                <span className="material-symbols-outlined text-secondary text-3xl mb-7 block">
+                  eco
+                </span>
+                <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-5">
+                  Environmental Accountability
+                </span>
+                <h3 className="font-headline text-3xl md:text-4xl text-primary leading-tight mb-6">
+                  Environmental controls belong beside plating capability.
+                </h3>
+                <p className="font-body text-on-surface-variant text-sm leading-relaxed">
+                  Electroplating requires wastewater treatment, discharge monitoring, chemical
+                  handling, exhaust treatment, and documented environmental controls. KaiGui keeps
+                  those systems inside the same licensed production base that manages metal
+                  finishing.
+                </p>
+              </div>
+              <div className="mt-8 border-t border-outline-variant/20 pt-6">
+                <span className="font-label text-[10px] uppercase tracking-widest text-primary/40 block">
+                  Controlled Area
+                </span>
+                <p className="font-label text-sm text-primary">
+                  Wastewater + Exhaust Management
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8 bg-surface-container-low p-3 md:p-4">
+              <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
+                <div className="xl:col-span-7 space-y-4">
+                  {ENVIRONMENTAL_ACCOUNTABILITY_IMAGES.map(({ src, alt, label }) => (
+                    <figure
+                      key={src}
+                      className="overflow-hidden bg-surface-container-lowest"
+                    >
+                      <div className="h-[260px] md:h-[320px] overflow-hidden bg-surface-container-low">
+                        <img src={src} alt={alt} className="h-full w-full object-cover" />
+                      </div>
+                      <figcaption className="bg-white px-5 py-4 font-label text-[10px] uppercase tracking-[0.2em] text-primary">
+                        {label}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+
+                <div className="xl:col-span-5 bg-surface-container-lowest p-6 md:p-8 flex flex-col justify-center">
+                  <span className="font-label text-[10px] text-secondary uppercase tracking-[0.25em] mb-4 block">
+                    Environmental Control License
+                  </span>
+                  <h4 className="font-headline text-2xl text-primary mb-5">
+                    Documented control for wastewater and exhaust systems.
+                  </h4>
+                  <p className="font-body text-xs text-on-surface-variant leading-relaxed mb-6">
+                    The environmental control credential sits with the exhaust tower and wastewater
+                    treatment visuals so customers can connect the document to the physical systems
+                    behind plating compliance.
+                  </p>
+                  <div className="max-w-[260px]">
+                    <CertificateImage
+                      src="/images/factory-tour-environmental-control.png"
+                      alt="KaiGui Environmental Control license display"
+                      aspectClass="aspect-[4/5]"
+                      hoverLabel="VIEW LICENSE"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -294,6 +351,33 @@ export default function LicensingPage() {
                 />
               </div>
 
+              {/* Quality Control License */}
+              <div className="md:col-span-12 bg-surface-container-lowest p-8 border border-outline-variant/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div className="lg:col-span-4">
+                  <CertificateImage
+                    src="/images/factory-tour-quality-control.png"
+                    alt="KaiGui Quality Control license display"
+                    aspectClass="aspect-[4/5]"
+                    hoverLabel="VIEW LICENSE"
+                  />
+                </div>
+                <div className="lg:col-span-8">
+                  <span className="font-label text-[10px] text-secondary tracking-widest uppercase mb-2 block">
+                    Quality System Credential
+                  </span>
+                  <h4 className="font-headline text-3xl text-primary mb-5">
+                    Quality Control License
+                  </h4>
+                  <p className="font-body text-on-surface-variant text-sm leading-relaxed max-w-3xl">
+                    Quality control now sits directly with KaiGui&apos;s certified credentials so the
+                    inspection system is presented as part of the documented production standard,
+                    alongside the pollutant discharge permit and electroplating operation license.
+                    Batch checks, sample comparison, and final surface review help keep custom pins
+                    aligned with the approved design before shipment.
+                  </p>
+                </div>
+              </div>
+
               {/* Safety Protocol */}
               <div className="md:col-span-6 bg-surface-container-lowest p-8 border border-outline-variant/10 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-4">
@@ -325,50 +409,6 @@ export default function LicensingPage() {
                 </p>
               </div>
 
-            </div>
-
-            <div id="license-support-systems" className="scroll-mt-32 mt-16 border-t border-outline-variant/20 pt-14">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end mb-10">
-                <div className="lg:col-span-5">
-                  <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-4">
-                    Factory Controls Under Current Licenses
-                  </span>
-                  <h3 className="font-headline text-3xl md:text-4xl text-primary leading-tight">
-                    The operating systems behind the documents.
-                  </h3>
-                </div>
-                <p className="lg:col-span-7 font-body text-on-surface-variant text-base leading-relaxed">
-                  The licenses are supported by daily controls on the factory floor: batch records,
-                  quality checks, wastewater management, and environmental documentation tied to
-                  legal electroplating operations.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {LICENSE_CONTROL_EVIDENCE.map(({ title, image, alt, body }) => (
-                  <article
-                    key={title}
-                    className="bg-surface-container-lowest border border-outline-variant/10 p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center"
-                  >
-                    <div className="lg:col-span-5 aspect-[4/5] overflow-hidden bg-surface-container-low">
-                      <img
-                        src={image}
-                        alt={alt}
-                        className="h-full w-full object-cover grayscale-[0.15]"
-                      />
-                    </div>
-                    <div className="lg:col-span-7">
-                      <span className="font-label text-[10px] text-secondary uppercase tracking-[0.2em] mb-3 block">
-                        License Support System
-                      </span>
-                      <h4 className="font-headline text-2xl text-primary mb-4">{title}</h4>
-                      <p className="font-body text-sm text-on-surface-variant leading-relaxed">
-                        {body}
-                      </p>
-                    </div>
-                  </article>
-                ))}
-              </div>
             </div>
           </div>
         </section>

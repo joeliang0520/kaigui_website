@@ -57,7 +57,7 @@ const SERVICE_SCOPE = [
 const CUSTOM_DESIGN_STEPS = [
   {
     step: "01",
-    title: "Graphic Design Approval",
+    title: "Graphic Design",
     detail:
       "We turn your concept into clear production artwork and confirm the design with you before tooling begins.",
   },
@@ -81,7 +81,7 @@ const CUSTOM_DESIGN_STEPS = [
   },
   {
     step: "05",
-    title: "Packing and Shipping",
+    title: "Shipping",
     detail:
       "Completed goods are packed and shipped through FedEx, UPS, or DHL with tracking numbers for delivery visibility.",
   },

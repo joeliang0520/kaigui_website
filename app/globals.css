@@ -184,6 +184,243 @@ body {
   box-shadow: 0 18px 48px rgba(3, 6, 18, 0.08);
 }
 
+@keyframes product-gallery-card-in {
+  from {
+    clip-path: inset(16% 0 0 0);
+    filter: blur(6px) saturate(0.8);
+    opacity: 0;
+    transform: translateY(26px) scale(0.98);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    filter: blur(0) saturate(1);
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes product-gallery-skeleton {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes product-gallery-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes product-gallery-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes product-gallery-lightbox-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes factory-gallery-card-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes factory-story-section-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes factory-story-tile-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes factory-story-roll-left-to-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.product-gallery-card {
+  animation: product-gallery-card-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--gallery-index, 0) * 70ms);
+}
+
+.product-gallery-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.35) 45%,
+    transparent 70%
+  );
+  opacity: 0;
+  transform: translateX(-120%);
+  transition: opacity 260ms ease, transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-gallery-card:hover::after {
+  opacity: 1;
+  transform: translateX(120%);
+}
+
+.product-gallery-image {
+  transition: filter 700ms ease, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-gallery-card:hover .product-gallery-image {
+  filter: saturate(1.08) contrast(1.03);
+  transform: scale(1.06);
+}
+
+.product-gallery-skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-gallery-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.58),
+    transparent
+  );
+  animation: product-gallery-skeleton 1.4s ease-in-out infinite;
+}
+
+.product-gallery-spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid rgba(118, 119, 124, 0.45);
+  border-top-color: #775a19;
+  border-radius: 9999px;
+  animation: product-gallery-spinner 800ms linear infinite;
+}
+
+.product-gallery-overlay {
+  animation: product-gallery-overlay-in 220ms ease both;
+}
+
+.product-gallery-lightbox {
+  animation: product-gallery-lightbox-in 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.factory-gallery-card {
+  animation: factory-gallery-card-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--factory-gallery-index, 0) * 70ms);
+}
+
+.factory-gallery-image {
+  transition: filter 700ms ease, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.factory-gallery-card:hover .factory-gallery-image {
+  filter: saturate(1.06) contrast(1.03);
+  transform: scale(1.04);
+}
+
+.factory-story-section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.factory-story-section[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.factory-story-section:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.factory-story-tile {
+  opacity: 0;
+  transform: translateY(22px) scale(0.985);
+  filter: blur(6px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 700ms ease, box-shadow 320ms ease;
+  transition-delay: calc(var(--factory-reveal-index, 0) * 90ms);
+  will-change: opacity, transform, filter;
+}
+
+.factory-story-tile[data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.factory-story-tile:hover {
+  transform: translateY(-4px) scale(1);
+  box-shadow: 0 22px 52px rgba(8, 12, 20, 0.18);
+  z-index: 2;
+}
+
+.factory-story-image {
+  transition: filter 700ms ease, transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.factory-story-section figure:hover .factory-story-image {
+  filter: saturate(1.08) contrast(1.04);
+  transform: scale(1.06);
+}
+
+.factory-story-marquee-track {
+  animation: factory-story-roll-left-to-right 38s linear infinite;
+}
+
+.factory-story-marquee:hover .factory-story-marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pipeline-flow-light,
   .pipeline-step,
@@ -192,8 +429,18 @@ body {
   .site-route-transition > * > header,
   .site-route-transition > * > section,
   .site-route-transition main > header,
-  .site-route-transition main > section {
+  .site-route-transition main > section,
+  .product-gallery-card,
+  .product-gallery-skeleton::after,
+  .product-gallery-spinner,
+  .product-gallery-overlay,
+  .product-gallery-lightbox,
+  .factory-gallery-card,
+  .factory-story-section,
+  .factory-story-tile,
+  .factory-story-marquee-track {
     animation: none;
+    transition: none;
   }
 
   .pipeline-step,
@@ -201,9 +448,22 @@ body {
   .site-route-transition > * > section,
   .site-route-transition main > header,
   .site-route-transition main > section,
-  .site-route-transition :where(article, figure) {
+  .site-route-transition :where(article, figure),
+  .product-gallery-card,
+  .product-gallery-image,
+  .product-gallery-lightbox,
+  .factory-gallery-card,
+  .factory-gallery-image,
+  .factory-story-section,
+  .factory-story-tile,
+  .factory-story-image,
+  .factory-story-marquee-track {
     opacity: 1;
     transform: none;
     filter: none;
+  }
+
+  .product-gallery-card::after {
+    display: none;
   }
 }

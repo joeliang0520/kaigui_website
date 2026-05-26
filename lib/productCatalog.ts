@@ -1,11 +1,5 @@
 import type { PinStyle } from "@/lib/pinConfig";
 
-export type ProductGalleryImage = {
-  src: string;
-  alt: string;
-  caption: string;
-};
-
 export type ProductDetail = {
   summary: string;
   imageSrc: string;
@@ -14,7 +8,6 @@ export type ProductDetail = {
   bestFor: string[];
   productionNotes: string[];
   finishOptions: string[];
-  gallery: ProductGalleryImage[];
 };
 
 export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
@@ -37,23 +30,6 @@ export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
       "Best with clean artwork and defined color regions",
     ],
     finishOptions: ["Gold", "Silver", "Nickel", "Black nickel", "Antique finishes"],
-    gallery: [
-      {
-        src: "/images/product-hard-enamel-gallery-1.png",
-        alt: "Hard enamel lapel pin with polished gold plating",
-        caption: "Polished gold plating",
-      },
-      {
-        src: "/images/product-hard-enamel-gallery-2.png",
-        alt: "Hard enamel pin with deep color fill",
-        caption: "Level enamel color",
-      },
-      {
-        src: "/images/product-hard-enamel-gallery-3.png",
-        alt: "Hard enamel pin displayed with backing card",
-        caption: "Retail-ready presentation",
-      },
-    ],
   },
   soft_enamel: {
     summary:
@@ -74,23 +50,6 @@ export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
       "Optional epoxy dome can add a glossy protective layer",
     ],
     finishOptions: ["Gold", "Silver", "Copper", "Black nickel", "Dyed black"],
-    gallery: [
-      {
-        src: "/images/product-soft-enamel-gallery-1.png",
-        alt: "Soft enamel pin with raised metal detail",
-        caption: "Raised metal ridges",
-      },
-      {
-        src: "/images/product-soft-enamel-gallery-2.png",
-        alt: "Soft enamel badge with bright color panels",
-        caption: "Bright recessed color",
-      },
-      {
-        src: "/images/product-soft-enamel-gallery-3.png",
-        alt: "Soft enamel pins arranged for packaging",
-        caption: "Production-ready batches",
-      },
-    ],
   },
   die_struck: {
     summary:
@@ -110,23 +69,6 @@ export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
       "Antique finishes make fine details more visible",
     ],
     finishOptions: ["Polished gold", "Antique silver", "Antique copper", "Dual-tone metal"],
-    gallery: [
-      {
-        src: "/images/product-die-struck-gallery-1.png",
-        alt: "Die struck pin with antique silver finish",
-        caption: "Antique silver relief",
-      },
-      {
-        src: "/images/product-die-struck-gallery-2.png",
-        alt: "Die struck logo pin with polished highlights",
-        caption: "Polished highlights",
-      },
-      {
-        src: "/images/product-die-struck-gallery-3.png",
-        alt: "Die struck metal pins arranged on a table",
-        caption: "Metal-only production",
-      },
-    ],
   },
   "3d_mold": {
     summary:
@@ -146,23 +88,6 @@ export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
       "Good for complex silhouettes and sculpted surfaces",
     ],
     finishOptions: ["Gold", "Nickel", "Antique bronze", "Painted details", "Mixed enamel accents"],
-    gallery: [
-      {
-        src: "/images/product-3d-mold-gallery-1.png",
-        alt: "3D molded pin with raised sculptural form",
-        caption: "Raised sculptural form",
-      },
-      {
-        src: "/images/product-3d-mold-gallery-2.png",
-        alt: "3D molded metal ornament with curved surface",
-        caption: "Curved relief surface",
-      },
-      {
-        src: "/images/product-3d-mold-gallery-3.png",
-        alt: "3D molded pins with antique finish",
-        caption: "Antique dimensional finish",
-      },
-    ],
   },
   laser_cut: {
     summary:
@@ -182,23 +107,6 @@ export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
       "Good for small batches and technical outlines",
     ],
     finishOptions: ["Polished metal", "Printed color", "Clear acrylic", "Dyed black", "Brushed effects"],
-    gallery: [
-      {
-        src: "/images/product-laser-cut-gallery-1.png",
-        alt: "Laser-cut pin with precise custom outline",
-        caption: "Precise custom outline",
-      },
-      {
-        src: "/images/product-laser-cut-gallery-2.png",
-        alt: "Laser-cut badge with sharp internal cutout",
-        caption: "Internal cutout detail",
-      },
-      {
-        src: "/images/product-laser-cut-gallery-3.png",
-        alt: "Laser-cut products arranged in a small batch",
-        caption: "Clean batch production",
-      },
-    ],
   },
   acrylic: {
     summary:
@@ -219,22 +127,5 @@ export const PRODUCT_DETAILS: Record<PinStyle, ProductDetail> = {
       "Works well for playful or highly detailed artwork",
     ],
     finishOptions: ["Clear acrylic", "Frosted acrylic", "Double-sided print", "Color acrylic", "Printed backing"],
-    gallery: [
-      {
-        src: "/images/product-acrylic-gallery-1.png",
-        alt: "Acrylic pin with transparent edge and full-color print",
-        caption: "Transparent acrylic edge",
-      },
-      {
-        src: "/images/product-acrylic-gallery-2.png",
-        alt: "Acrylic pins with bright illustrated artwork",
-        caption: "Full-color print",
-      },
-      {
-        src: "/images/product-acrylic-gallery-3.png",
-        alt: "Acrylic pin products arranged for display",
-        caption: "Lightweight display set",
-      },
-    ],
   },
 };

@@ -216,30 +216,46 @@ export default function Home() {
 
               {/* In-House Plating Control — wide */}
               <Link
-                href="/licensing#plating-control"
-                className="md:col-span-2 bg-surface-container-lowest p-8 md:p-12 flex flex-col justify-between border-l border-surface-container-high transition-all hover:bg-white group"
+                href="/about/factory-tour#metalworking-workshop"
+                className="group relative isolate min-h-[420px] overflow-hidden md:col-span-2 bg-primary p-8 md:p-12 flex flex-col justify-between border-l border-surface-container-high text-on-primary transition-all"
               >
+                <img
+                  src="/images/factory/optimized/刻模.webp"
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 -z-20 h-full w-full object-cover grayscale-[0.15] transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/95 via-primary/78 to-primary/35" />
+                <div className="absolute inset-0 -z-10 bg-primary/15 transition-colors group-hover:bg-primary/5" />
                 <div>
-                  <span className="font-label text-[10px] text-outline-variant mb-4 block">01 / PLATING CONTROL</span>
+                  <span className="font-label text-[10px] text-on-primary-container mb-4 block">01 / PLATING CONTROL</span>
                   <h3 className="font-headline text-3xl mb-6">In-House Plating Control</h3>
-                  <p className="font-body text-on-surface-variant text-sm leading-loose max-w-md">
+                  <p className="font-body text-on-primary/78 text-sm leading-loose max-w-md">
                     KaiGui manages electroplating and surface finishing inside its own certified
                     facility, keeping quality, color, finish, and timing under direct factory control.
                   </p>
                 </div>
                 <div className="mt-10 flex items-end justify-between">
-                  <div className="text-xs font-label text-secondary uppercase tracking-widest">
+                  <div className="text-xs font-label text-secondary-container uppercase tracking-widest">
                     Decorative + Functional Plating
                   </div>
-                  <span className="material-symbols-outlined text-4xl text-surface-container-highest">science</span>
+                  <span className="material-symbols-outlined text-4xl text-white/70">arrow_forward</span>
                 </div>
               </Link>
 
               {/* Legal Manufacturing Basis — dark */}
               <Link
                 href="/licensing#certified-credentials"
-                className="bg-primary text-on-primary p-8 md:p-10 flex flex-col justify-between group"
+                className="group relative isolate min-h-[420px] overflow-hidden bg-primary text-on-primary p-8 md:p-10 flex flex-col justify-between"
               >
+                <img
+                  src="/images/pollutant-discharge-permit.png"
+                  alt=""
+                  aria-hidden
+                  className="absolute inset-0 -z-20 h-full w-full object-cover object-center opacity-35 transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/96 via-primary/90 to-primary/96" />
+                <div className="absolute inset-0 -z-10 bg-primary/40 transition-colors group-hover:bg-primary/30" />
                 <div>
                   <span className="font-label text-[10px] text-on-primary/40 mb-4 block">02 / LICENSE STACK</span>
                   <h3 className="font-headline text-3xl mb-6">Legal Manufacturing Basis</h3>
@@ -259,7 +275,7 @@ export default function Home() {
 
               {/* Environmental Accountability */}
               <Link
-                href="/licensing#license-support-systems"
+                href="/licensing#environmental-accountability"
                 className="bg-surface-container-low p-8 md:p-10 flex flex-col justify-between group"
               >
                 <div>

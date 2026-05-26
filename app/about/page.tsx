@@ -2,6 +2,17 @@ import Link from "next/link";
 import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 
+const FACTORY_TEASER_STEPS = [
+  "Electroplating",
+  "Wiring / Hanging",
+  "Coloring",
+  "Metalworking",
+  "Polishing",
+  "Packaging",
+  "Environmental",
+  "Factory Environment",
+];
+
 export default function AboutPage() {
   return (
     <div className="bg-background text-on-background min-h-screen font-body antialiased overflow-x-hidden">
@@ -81,42 +92,55 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Factory Tour ── */}
+        {/* ── About Factory ── */}
         <section className="mb-32 bg-surface-container-low overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12">
-            <div className="lg:col-span-5 min-h-[420px] relative">
+            <div className="lg:col-span-5 min-h-[520px] relative overflow-hidden bg-surface-container-low">
               <img
-                src="/images/factory-tour-facility-exterior.jpg"
-                alt="KaiGui factory exterior"
+                src="/images/factory/optimized/門面（1）.webp"
+                alt="KaiGui factory main entrance"
                 className="absolute inset-0 h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-primary/10" />
+              <div className="absolute inset-0 bg-primary/15" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-primary/80 to-transparent">
+                <p className="font-label text-[10px] uppercase tracking-[0.25em] text-white/70 mb-3">
+                  Kunshan Facility
+                </p>
+                <p className="font-headline text-2xl text-white italic leading-tight">
+                  Production departments, environmental controls, and final packing inside one
+                  controlled campus.
+                </p>
+              </div>
             </div>
 
             <div className="lg:col-span-7 p-10 md:p-16 flex flex-col justify-center">
               <span className="font-label text-secondary text-xs uppercase tracking-[0.25em] block mb-6">
-                Factory Tour
+                About Factory
               </span>
               <h2 className="font-headline text-4xl md:text-6xl text-primary leading-tight mb-8">
-                See the controls behind every custom finish.
+                Behind every custom finish.
               </h2>
               <p className="text-on-surface-variant text-lg leading-relaxed max-w-2xl mb-10">
-                Step inside our Kunshan facility for a closer look at vertically integrated
-                production, licensed plating operations, environmental controls, and quality
-                checkpoints across the factory floor.
+                Step inside the Kunshan factory through a guided story of the campus,
+                metalworking, polishing, hanging, electroplating, coloring, packaging, and the
+                environmental systems behind licensed production.
               </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-outline-variant/20 max-w-3xl mb-10">
+                {FACTORY_TEASER_STEPS.map((step) => (
+                  <span
+                    key={step}
+                    className="bg-background px-4 py-4 font-label text-[12px] uppercase tracking-wider text-primary"
+                  >
+                    {step}
+                  </span>
+                ))}
+              </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="/about/factory-tour"
-                  className="inline-flex justify-center bg-primary text-on-primary px-8 py-4 text-xs font-label uppercase tracking-widest hover:opacity-90 transition-opacity"
+                  className="inline-flex justify-center bg-primary text-on-primary px-8 py-4 text-l font-label uppercase tracking-widest hover:opacity-90 transition-opacity"
                 >
-                  Watch Factory Tour
-                </Link>
-                <Link
-                  href="/licensing"
-                  className="inline-flex justify-center border border-primary/20 text-primary px-8 py-4 text-xs font-label uppercase tracking-widest hover:bg-surface-container-lowest transition-colors"
-                >
-                  View Capabilities
+                  Exploring the Factory
                 </Link>
               </div>
             </div>
@@ -128,12 +152,7 @@ export default function AboutPage() {
           <div className="flex justify-between items-baseline mb-16">
             <h2 className="font-headline text-4xl text-primary">The Visionaries</h2>
             <div className="h-[1px] flex-grow mx-12 bg-outline-variant/20" />
-            <Link
-              href="/about/founders"
-              className="font-label text-xs uppercase tracking-widest text-secondary hover:text-primary transition-colors"
-            >
-              Meet the Founders
-            </Link>
+
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
