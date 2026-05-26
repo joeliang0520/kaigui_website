@@ -14,6 +14,8 @@ export const dynamic = "force-dynamic";
 
 type FactorySectionDefinition = Omit<FactoryWalkthroughSection, "images"> & {
   matches: (fileName: string) => boolean;
+  sortKey?: (sourceName: string) => number;
+  swaps?: Array<[(sourceName: string) => boolean, (sourceName: string) => boolean]>;
 };
 
 type CaptionRule = {
@@ -24,6 +26,13 @@ type CaptionRule = {
 const FACTORY_IMAGE_DIR = path.join(process.cwd(), "public/images/factory");
 const FACTORY_OPTIMIZED_DIR = path.join(FACTORY_IMAGE_DIR, "optimized");
 const SOURCE_IMAGE_PATTERN = /\.(png|jpe?g)$/i;
+const EXCLUDED_SOURCE_FILES = new Set([
+  "電鍍（1）.png",
+  "電鍍（2）.png",
+  "电镀槽（2）.png",
+  "电镀槽（3）.png",
+  "廢水處理_金工車間.png",
+]);
 const COLLATOR = new Intl.Collator("zh-Hans-CN", {
   numeric: true,
   sensitivity: "base",
@@ -64,7 +73,6 @@ function isBuildingEnvironment(fileName: string) {
 const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
   {
     id: "factory-environment",
-    titleZh: "工厂环境：门面 / 楼房布局",
     titleEn: "Factory Environment",
     kicker: "Arrival",
     headline: "A purpose-built manufacturing campus in Kunshan.",
@@ -78,7 +86,6 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
   },
   {
     id: "metalworking-workshop",
-    titleZh: "金工车间",
     titleEn: "Metalworking Workshop",
     kicker: "Tooling and Forming",
     headline: "In-house tooling, stamping, and die casting.",
@@ -87,14 +94,30 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
       "Keeping tooling in-house means faster sample turnaround, tighter tolerances on raised lines and recessed fields, and full control over part geometry from the first prototype to bulk production.",
     ],
     facts: ["Mold engraving in-house", "Stamping and die casting", "Precision blank production"],
-    layout: "feature",
+    layout: "arrival",
     matches: (fileName) =>
       !isEnvironmental(fileName) &&
-      containsAny(fileName, ["金工", "冲压", "沖壓", "冲床", "沖床", "刻模", "壓鑄", "压铸"]),
+      containsAny(fileName, [
+        "金工",
+        "冲压",
+        "沖壓",
+        "冲床",
+        "沖床",
+        "刻模",
+        "壓鑄",
+        "压铸",
+        "机器螺丝",
+        "機器螺絲",
+      ]),
+    swaps: [
+      [
+        (sourceName) => containsAny(sourceName, ["机器螺丝", "機器螺絲"]),
+        (sourceName) => containsAny(sourceName, ["壓鑄", "压铸"]),
+      ],
+    ],
   },
   {
     id: "polishing-workshop",
-    titleZh: "抛光车间",
     titleEn: "Polishing Workshop",
     kicker: "Surface Preparation",
     headline: "Hand-finished surfaces, ready for plating.",
@@ -108,7 +131,6 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
   },
   {
     id: "wiring-hanging-department",
-    titleZh: "绑线车间",
     titleEn: "Wiring / Hanging Department",
     kicker: "Handling Control",
     headline: "Precise rack preparation for every plating batch.",
@@ -117,12 +139,11 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
       "This step prevents finish defects, eliminates touch marks, and keeps batches organized for accurate inspection downstream.",
     ],
     facts: ["Hand-wired racking", "Uniform part spacing", "Protected fine detail"],
-    layout: "feature",
-    matches: (fileName) => containsAny(fileName, ["绑线", "綁線", "机器螺丝", "機器螺絲"]),
+    layout: "split",
+    matches: (fileName) => containsAny(fileName, ["绑线", "綁線"]),
   },
   {
     id: "electroplating-workshop",
-    titleZh: "电镀车间",
     titleEn: "Electroplating Workshop",
     kicker: "Finish Building",
     headline: "A licensed, fully in-house electroplating operation.",
@@ -146,13 +167,11 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
   },
   {
     id: "coloring-workshop",
-    titleZh: "上色车间",
     titleEn: "Coloring Workshop",
     kicker: "Enamel Color",
     headline: "Hand-filled enamel and precision curing.",
     body: [
-      "Skilled colorists fill each piece by hand, matching Pantone references and brand standards across hard enamel, soft enamel, and printed designs.",
-      "Dedicated curing ovens lock in color depth and durability, ensuring that even multi-color artwork with fine separations holds up over time.",
+      "  Quality control begins at the color stage. Each piece is hand-filled by experienced colorists who match Pantone references, brand standards, and production samples with close attention to accuracy and consistency across hard enamel, soft enamel, and printed designs..",
     ],
     facts: ["Hand-filled enamel", "Pantone color matching", "Controlled-temperature curing"],
     layout: "feature",
@@ -160,7 +179,6 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
   },
   {
     id: "packaging-department",
-    titleZh: "包装车间",
     titleEn: "Packaging Department",
     kicker: "QC and Packing",
     headline: "Every order inspected piece by piece.",
@@ -171,10 +189,16 @@ const SECTION_DEFINITIONS: FactorySectionDefinition[] = [
     facts: ["Piece-by-piece QC", "Custom packaging options", "Export-ready shipment"],
     layout: "inspection",
     matches: (fileName) => containsAny(fileName, ["包装", "包裝", "QC", "品鉴", "品鑒"]),
+    sortKey: (sourceName) => {
+      if (containsAny(sourceName, ["包装部分（1）", "包裝部分（1）"])) return 0;
+      if (containsAny(sourceName, ["品鉴", "品鑒"])) return 1;
+      if (sourceName.includes("QC")) return 2;
+      if (containsAny(sourceName, ["包装部分（2）", "包裝部分（2）"])) return 3;
+      return 99;
+    },
   },
   {
     id: "environmental-facilities",
-    titleZh: "环保部分：废水处理 / 废气塔 / 危险品仓库",
     titleEn: "Environmental Facilities",
     kicker: "Compliance Infrastructure",
     headline: "Licensed, audited, environmentally compliant.",
@@ -292,7 +316,10 @@ function getFactoryImageFiles() {
   }
 
   return readdirSync(FACTORY_IMAGE_DIR)
-    .filter((fileName) => SOURCE_IMAGE_PATTERN.test(fileName))
+    .filter(
+      (fileName) =>
+        SOURCE_IMAGE_PATTERN.test(fileName) && !EXCLUDED_SOURCE_FILES.has(fileName),
+    )
     .sort((left, right) => COLLATOR.compare(left, right));
 }
 
@@ -310,9 +337,26 @@ function getFactorySections(): FactoryWalkthroughSection[] {
     groupedImages.get(matchedSection.id)?.push(makeFactoryImage(fileName));
   });
 
+  SECTION_DEFINITIONS.forEach((section) => {
+    const images = groupedImages.get(section.id);
+    if (!images) return;
+
+    if (section.sortKey) {
+      const sortKey = section.sortKey;
+      images.sort((left, right) => sortKey(left.sourceName) - sortKey(right.sourceName));
+    }
+
+    section.swaps?.forEach(([matchA, matchB]) => {
+      const indexA = images.findIndex((image) => matchA(image.sourceName));
+      const indexB = images.findIndex((image) => matchB(image.sourceName));
+      if (indexA >= 0 && indexB >= 0 && indexA !== indexB) {
+        [images[indexA], images[indexB]] = [images[indexB], images[indexA]];
+      }
+    });
+  });
+
   return SECTION_DEFINITIONS.map((section) => ({
     id: section.id,
-    titleZh: section.titleZh,
     titleEn: section.titleEn,
     kicker: section.kicker,
     headline: section.headline,

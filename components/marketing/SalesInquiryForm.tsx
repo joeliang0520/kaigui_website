@@ -1,7 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
-import { SALES_EMAIL } from "@/lib/contactInfo";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 
 const INQUIRY_TYPES = [
   "Custom lapel pins",
@@ -14,8 +13,41 @@ const INQUIRY_TYPES = [
 
 const CONTACT_METHODS = ["Email", "Phone", "Either"];
 
+const ACCEPTED_FILE_TYPES =
+  ".jpg,.jpeg,.png,.gif,.webp,.svg,.pdf,.ai,.eps,.psd,.zip,image/*,application/pdf,application/postscript,application/illustrator,application/zip";
+
+const ALLOWED_EXTENSIONS = [
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "webp",
+  "svg",
+  "pdf",
+  "ai",
+  "eps",
+  "psd",
+  "zip",
+];
+
+const MAX_FILES = 8;
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
+
 interface SalesInquiryFormProps {
   initialEmail?: string;
+}
+
+function getExtension(name: string) {
+  const lastDot = name.lastIndexOf(".");
+  if (lastDot === -1) return "";
+  return name.slice(lastDot + 1).toLowerCase();
+}
+
+function formatBytes(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 }
 
 export function SalesInquiryForm({ initialEmail = "" }: SalesInquiryFormProps) {
@@ -29,41 +61,125 @@ export function SalesInquiryForm({ initialEmail = "" }: SalesInquiryFormProps) {
   const [quantity, setQuantity] = useState("");
   const [timeline, setTimeline] = useState("");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">(
+    "idle",
+  );
+  const [submitMessage, setSubmitMessage] = useState<string>("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const mailSubject = useMemo(() => {
-    const cleanTitle = title.trim() || "Sales inquiry";
-    return `[KaiGui Sales] ${cleanTitle}`;
-  }, [title]);
+  function validateAndMergeFiles(incoming: File[]): { next: File[]; error: string | null } {
+    const merged = [...files];
+    for (const candidate of incoming) {
+      if (merged.some((f) => f.name === candidate.name && f.size === candidate.size)) continue;
+      const ext = getExtension(candidate.name);
+      if (!ALLOWED_EXTENSIONS.includes(ext)) {
+        return {
+          next: merged,
+          error: `"${candidate.name}" is not an accepted file type.`,
+        };
+      }
+      if (candidate.size > MAX_FILE_BYTES) {
+        return {
+          next: merged,
+          error: `"${candidate.name}" is larger than 10 MB.`,
+        };
+      }
+      merged.push(candidate);
+    }
+    if (merged.length > MAX_FILES) {
+      return {
+        next: files,
+        error: `Attach up to ${MAX_FILES} files per inquiry.`,
+      };
+    }
+    const total = merged.reduce((sum, f) => sum + f.size, 0);
+    if (total > MAX_TOTAL_BYTES) {
+      return {
+        next: files,
+        error: "Combined attachment size exceeds 20 MB.",
+      };
+    }
+    return { next: merged, error: null };
+  }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const list = event.target.files;
+    if (!list || list.length === 0) return;
+    const { next, error } = validateAndMergeFiles(Array.from(list));
+    setFiles(next);
+    setFileError(error);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  function removeFile(index: number) {
+    setFiles((current) => current.filter((_, idx) => idx !== index));
+    setFileError(null);
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (submitting) return;
 
-    const bodyLines = [
-      `Inquiry title: ${title}`,
-      `Inquiry type: ${inquiryType}`,
-      "",
-      "Contact information",
-      `Name: ${name}`,
-      `Company: ${company || "Not provided"}`,
-      `Email: ${email}`,
-      `Phone: ${phone || "Not provided"}`,
-      `Preferred contact: ${preferredContact}`,
-      "",
-      "Project details",
-      `Estimated quantity: ${quantity || "Not provided"}`,
-      `Target timeline: ${timeline || "Not provided"}`,
-      "",
-      "Inquiry",
-      message,
-    ];
+    setSubmitting(true);
+    setSubmitState("idle");
+    setSubmitMessage("");
 
-    const mailto = `mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
-      mailSubject,
-    )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("inquiryType", inquiryType);
+    formData.append("name", name);
+    formData.append("company", company);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("preferredContact", preferredContact);
+    formData.append("quantity", quantity);
+    formData.append("timeline", timeline);
+    formData.append("message", message);
+    for (const file of files) {
+      formData.append("files", file, file.name);
+    }
 
-    window.location.href = mailto;
-    setSubmitted(true);
+    try {
+      const response = await fetch("/api/sales-inquiry", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        setSubmitState("error");
+        setSubmitMessage(
+          (data && data.error) ||
+            "We could not send your inquiry. Please email us directly.",
+        );
+        return;
+      }
+
+      setSubmitState("success");
+      setSubmitMessage(
+        "Inquiry sent. Our sales team will reply to your email shortly.",
+      );
+      setTitle("");
+      setInquiryType(INQUIRY_TYPES[0]);
+      setName("");
+      setCompany("");
+      setEmail("");
+      setPhone("");
+      setPreferredContact(CONTACT_METHODS[0]);
+      setQuantity("");
+      setTimeline("");
+      setMessage("");
+      setFiles([]);
+      setFileError(null);
+    } catch {
+      setSubmitState("error");
+      setSubmitMessage("Network error. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   const inputClass =
@@ -219,18 +335,96 @@ export function SalesInquiryForm({ initialEmail = "" }: SalesInquiryFormProps) {
             className={`${inputClass} resize-y`}
           />
         </div>
+
+        <div className="space-y-3 md:col-span-2">
+          <div className="flex items-baseline justify-between gap-3">
+            <label htmlFor="files" className={labelClass}>
+              Design / Artwork Files
+            </label>
+            <span className="font-label text-[10px] text-on-surface-variant">
+              JPG, PNG, PDF, AI, EPS, PSD, SVG, ZIP · up to 10 MB each · 20 MB total
+            </span>
+          </div>
+
+          <label
+            htmlFor="files"
+            className="flex flex-col items-center justify-center gap-2 border border-dashed border-outline-variant/60 bg-surface-container-lowest px-4 py-8 cursor-pointer hover:border-secondary hover:bg-surface-container-low transition-colors text-center"
+          >
+            <span className="material-symbols-outlined text-secondary text-3xl">
+              upload_file
+            </span>
+            <span className="font-label text-sm text-primary">
+              Click to attach design, mockup, or reference files
+            </span>
+            <span className="font-body text-xs text-on-surface-variant">
+              Helps our team quote material, plating, and confidentiality needs faster.
+            </span>
+          </label>
+          <input
+            ref={fileInputRef}
+            id="files"
+            type="file"
+            multiple
+            accept={ACCEPTED_FILE_TYPES}
+            onChange={handleFileChange}
+            className="sr-only"
+          />
+
+          {files.length > 0 && (
+            <ul className="space-y-2">
+              {files.map((file, index) => (
+                <li
+                  key={`${file.name}-${file.size}-${index}`}
+                  className="flex items-center justify-between gap-4 border border-outline-variant/30 bg-surface-bright px-4 py-3"
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span className="material-symbols-outlined text-secondary text-xl shrink-0">
+                      description
+                    </span>
+                    <div className="min-w-0">
+                      <p className="font-body text-sm text-primary truncate">{file.name}</p>
+                      <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                        {formatBytes(file.size)}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeFile(index)}
+                    className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
+                    aria-label={`Remove ${file.name}`}
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {fileError && (
+            <p className="font-body text-xs text-error" role="alert">
+              {fileError}
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <button
           type="submit"
-          className="bg-primary text-on-primary px-10 py-4 font-label text-xs uppercase tracking-widest hover:opacity-90 active:scale-[0.99] transition-all"
+          disabled={submitting}
+          className="bg-primary text-on-primary px-10 py-4 font-label text-xs uppercase tracking-widest hover:opacity-90 active:scale-[0.99] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Send Inquiry
+          {submitting ? "Sending…" : "Send Inquiry"}
         </button>
-        {submitted && (
-          <p className="font-body text-sm text-on-surface-variant">
-            Email draft opened. Attach artwork files before sending if available.
+        {submitState !== "idle" && submitMessage && (
+          <p
+            className={`font-body text-sm ${
+              submitState === "success" ? "text-on-surface-variant" : "text-error"
+            }`}
+            role={submitState === "error" ? "alert" : undefined}
+          >
+            {submitMessage}
           </p>
         )}
       </div>

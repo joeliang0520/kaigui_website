@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { createPortal } from "react-dom";
 
 type RuntimeGalleryImage = {
   src: string;
@@ -25,6 +26,11 @@ export function ProductGallery({ productLabel, styleSlug }: ProductGalleryProps)
   const [error, setError] = useState("");
   const [loadMoreError, setLoadMoreError] = useState("");
   const [selectedImage, setSelectedImage] = useState<RuntimeGalleryImage | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -243,39 +249,42 @@ export function ProductGallery({ productLabel, styleSlug }: ProductGalleryProps)
         </div>
       ) : null}
 
-      {selectedImage ? (
-        <div
-          className="product-gallery-overlay fixed inset-0 z-[80] flex items-center justify-center bg-primary/90 p-3 md:p-8"
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${selectedImage.caption} full image`}
-          onClick={() => setSelectedImage(null)}
-        >
-          <div
-            className="product-gallery-lightbox relative flex max-h-[calc(100vh-2rem)] w-full max-w-[calc(100vw-1.5rem)] flex-col overflow-hidden md:max-w-5xl"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              aria-label="Close image"
+      {selectedImage && isMounted
+        ? createPortal(
+            <div
+              className="product-gallery-overlay fixed inset-0 z-[80] flex items-center justify-center bg-primary/90 p-3 md:p-8"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${selectedImage.caption} full image`}
               onClick={() => setSelectedImage(null)}
-              className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center bg-surface-container-lowest text-primary shadow-xl transition-colors hover:bg-secondary hover:text-on-secondary"
             >
-              <span className="material-symbols-outlined text-xl">close</span>
-            </button>
-            <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-black/20">
-              <img
-                src={selectedImage.src}
-                alt={selectedImage.alt}
-                className="max-h-[calc(100vh-7rem)] max-w-full object-contain"
-              />
-            </div>
-            <div className="shrink-0 bg-surface-container-lowest px-5 py-4 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-              {selectedImage.caption}
-            </div>
-          </div>
-        </div>
-      ) : null}
+              <div
+                className="product-gallery-lightbox relative flex max-h-[calc(100vh-2rem)] w-full max-w-[calc(100vw-1.5rem)] flex-col overflow-hidden md:max-w-5xl"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  aria-label="Close image"
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center bg-surface-container-lowest text-primary shadow-xl transition-colors hover:bg-secondary hover:text-on-secondary"
+                >
+                  <span className="material-symbols-outlined text-xl">close</span>
+                </button>
+                <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-black/20">
+                  <img
+                    src={selectedImage.src}
+                    alt={selectedImage.alt}
+                    className="max-h-[calc(100vh-7rem)] max-w-full object-contain"
+                  />
+                </div>
+                <div className="shrink-0 bg-surface-container-lowest px-5 py-4 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                  {selectedImage.caption}
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }

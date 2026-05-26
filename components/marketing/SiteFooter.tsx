@@ -13,7 +13,7 @@ export function SiteFooter() {
           <p className="font-label text-[10px] text-on-surface-variant/60 mt-4 uppercase tracking-widest leading-relaxed max-w-[220px]">
             Kunshan Industrial Sector<br />
             31° 23′ N / 120° 57′ E<br />
-            Est. 1994
+            Est. 1992
           </p>
         </div>
 

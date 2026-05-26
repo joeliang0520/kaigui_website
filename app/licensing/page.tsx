@@ -22,7 +22,7 @@ const COMPLIANCE_CARDS = [
   },
 ];
 
-const ENVIRONMENTAL_ACCOUNTABILITY_IMAGES = [
+const PROCESS_CONTROL_IMAGES = [
   {
     src: "/images/factory/廢氣塔(楼顶）.png",
     alt: "Rooftop exhaust tower supporting KaiGui electroplating air-emission control",
@@ -92,7 +92,7 @@ export default function LicensingPage() {
           <img
             alt=""
             aria-hidden
-            src="/images/licensing-electroplating-process.png"
+            src="/images/licensing-electroplating-process.webp"
             className="absolute inset-0 h-full w-full object-cover object-center grayscale-[0.1] opacity-30"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/78 via-background/60 to-background/15" />
@@ -108,16 +108,11 @@ export default function LicensingPage() {
                 <span className="italic text-secondary">Strict Compliance.</span>
               </h1>
               <p className="font-body text-on-surface-variant text-lg max-w-xl leading-relaxed">
-                At KaiGui Ornament, compliance isn&apos;t a checkbox — it&apos;s the foundation of our craft.
+                At KaiGui, compliance isn&apos;t a checkbox. It&apos;s the foundation of our craft.
                 We balance precision manufacturing with rigorous environmental and legal standards
                 from our Kunshan facility.
               </p>
-              <div className="mt-12 inline-block bg-white/70 backdrop-blur-xl border border-white/50 p-6 max-w-[240px]">
-                <p className="font-label text-[10px] uppercase tracking-widest text-secondary mb-2">
-                  Facility Status
-                </p>
-                <p className="font-headline italic text-primary text-xl">Fully Certified 2024</p>
-              </div>
+
             </div>
           </div>
         </section>
@@ -152,38 +147,65 @@ export default function LicensingPage() {
             id="environmental-accountability"
             className="scroll-mt-32 mt-8 grid grid-cols-1 lg:grid-cols-12 overflow-hidden bg-surface-bright border border-outline-variant/10"
           >
-            <div className="lg:col-span-4 p-8 md:p-10 flex flex-col justify-between">
-              <div>
-                <span className="material-symbols-outlined text-secondary text-3xl mb-7 block">
-                  eco
-                </span>
-                <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-5">
-                  Environmental Accountability
-                </span>
-                <h3 className="font-headline text-3xl md:text-4xl text-primary leading-tight mb-6">
-                  Environmental controls belong beside plating capability.
+            <div className="lg:col-span-12 bg-surface-container-lowest border-b border-outline-variant/10 p-8 md:p-10">
+              <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-5">
+                ISO Standard
+              </span>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                <h3 className="lg:col-span-5 font-headline text-4xl md:text-5xl text-primary leading-tight">
+                  ISO Standard Quality
                 </h3>
-                <p className="font-body text-on-surface-variant text-sm leading-relaxed">
-                  Electroplating requires wastewater treatment, discharge monitoring, chemical
-                  handling, exhaust treatment, and documented environmental controls. KaiGui keeps
-                  those systems inside the same licensed production base that manages metal
-                  finishing.
+                <p className="lg:col-span-7 font-body text-on-surface-variant text-sm md:text-base leading-relaxed max-w-3xl">
+                  High quality and strict standards are the first priority of KaiGui&apos;s factory.
+                  From incoming materials to electroplating, color filling, final inspection, and
+                  packaging, each batch follows documented controls so every custom pin leaves the
+                  production floor with consistent finish, accurate detail, and reliable workmanship.
                 </p>
               </div>
-              <div className="mt-8 border-t border-outline-variant/20 pt-6">
-                <span className="font-label text-[10px] uppercase tracking-widest text-primary/40 block">
-                  Controlled Area
+            </div>
+
+            <div className="lg:col-span-4 p-8 md:p-10 flex flex-col justify-between">
+              <div>
+                <span className="font-label text-secondary text-[10px] uppercase tracking-[0.25em] block mb-5">
+                  ISO Quality Standard
                 </span>
-                <p className="font-label text-sm text-primary">
-                  Wastewater + Exhaust Management
+                <h3 className="font-headline text-2xl md:text-2xl text-primary leading-tight mb-6">
+                  ISO 9001:2015 Quality Management Systems
+                </h3>
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <div className="inline-flex items-center gap-2 border border-secondary/40 bg-secondary/10 px-3 py-1.5">
+                    <span className="material-symbols-outlined text-secondary text-base">verified</span>
+                    <span className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
+                      ISO 9001:2015
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                    Certified
+                  </span>
+                </div>
+                <p className="font-body text-on-surface-variant text-sm leading-relaxed">
+                  Certified to ISO 9001:2015, KaiGui operates a documented quality management
+                  system built on customer focus, process approach, risk-based thinking, and
+                  continual improvement. Defined controls from incoming materials through final
+                  inspection keep every custom order aligned with the approved specification
+                  before shipment.
                 </p>
+                <div className="mt-7 max-w-[270px]">
+                  <CertificateImage
+                    src="/images/factory-tour-quality-control.png"
+                    alt="KaiGui ISO 9001:2015 Quality Management Systems certificate"
+                    aspectClass="aspect-[4/5]"
+                    hoverLabel="VIEW CERTIFICATE"
+                  />
+                </div>
               </div>
             </div>
 
             <div className="lg:col-span-8 bg-surface-container-low p-3 md:p-4">
               <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
                 <div className="xl:col-span-7 space-y-4">
-                  {ENVIRONMENTAL_ACCOUNTABILITY_IMAGES.map(({ src, alt, label }) => (
+                  {PROCESS_CONTROL_IMAGES.map(({ src, alt, label }) => (
                     <figure
                       key={src}
                       className="overflow-hidden bg-surface-container-lowest"
@@ -200,22 +222,34 @@ export default function LicensingPage() {
 
                 <div className="xl:col-span-5 bg-surface-container-lowest p-6 md:p-8 flex flex-col justify-center">
                   <span className="font-label text-[10px] text-secondary uppercase tracking-[0.25em] mb-4 block">
-                    Environmental Control License
+                    ISO Environmental Standard
                   </span>
                   <h4 className="font-headline text-2xl text-primary mb-5">
-                    Documented control for wastewater and exhaust systems.
+                    ISO 14001:2015 Environmental Management Systems
                   </h4>
+                  <div className="flex flex-wrap items-center gap-3 mb-5">
+                    <div className="inline-flex items-center gap-2 border border-secondary/40 bg-secondary/10 px-3 py-1.5">
+                      <span className="material-symbols-outlined text-secondary text-base">eco</span>
+                      <span className="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">
+                        ISO 14001:2015
+                      </span>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                      <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                      Certified
+                    </span>
+                  </div>
                   <p className="font-body text-xs text-on-surface-variant leading-relaxed mb-6">
-                    The environmental control credential sits with the exhaust tower and wastewater
-                    treatment visuals so customers can connect the document to the physical systems
-                    behind plating compliance.
+                    Certified to ISO 14001:2015, KaiGui operates a documented environmental
+                    management system covering resource use, emissions monitoring, and continuous
+                    improvement across the Kunshan production campus.
                   </p>
                   <div className="max-w-[260px]">
                     <CertificateImage
                       src="/images/factory-tour-environmental-control.png"
-                      alt="KaiGui Environmental Control license display"
+                      alt="KaiGui ISO 14001:2015 Environmental Management Systems certificate"
                       aspectClass="aspect-[4/5]"
-                      hoverLabel="VIEW LICENSE"
+                      hoverLabel="VIEW CERTIFICATE"
                     />
                   </div>
                 </div>
@@ -285,7 +319,7 @@ export default function LicensingPage() {
                 </span>
                 <p className="font-body text-on-surface-variant text-sm leading-relaxed">
                   In China, a factory must hold both a Pollutant Discharge Permit
-                  (排污许可证) and an Electroplating Operation License (电镀证) in order to
+               and an Electroplating Operation License in order to
                   legally perform electroplating. KunShan Kaigui Ornament Co., Ltd. obtains
                   both, helping customers meet environmental obligations and product-compliance
                   standards through a properly licensed manufacturing base.
@@ -307,7 +341,7 @@ export default function LicensingPage() {
                 </div>
                 <div className="flex-1">
                   <span className="font-label text-[10px] text-secondary tracking-widest uppercase mb-2 block">
-                    Document No. CN-775-A19 · 排污许可证
+                    Document No. CN-775-A19
                   </span>
                   <h4 className="font-headline text-2xl text-primary mb-4">Pollutant Discharge Permit</h4>
                   <p className="font-body text-on-surface-variant text-sm mb-6 leading-relaxed">
@@ -332,7 +366,7 @@ export default function LicensingPage() {
               <div className="md:col-span-4 bg-surface-container-lowest p-8 flex flex-col border border-outline-variant/10">
                 <div className="flex-1 mb-8">
                   <span className="font-label text-[10px] text-secondary tracking-widest uppercase mb-2 block">
-                    Document No. EPL-002-PR · 电镀证
+                    Document No. EPL-002-PR
                   </span>
                   <h4 className="font-headline text-2xl text-primary mb-4">
                     Electroplating Operation License
@@ -349,33 +383,6 @@ export default function LicensingPage() {
                   aspectClass="aspect-square"
                   hoverLabel="PREVIEW"
                 />
-              </div>
-
-              {/* Quality Control License */}
-              <div className="md:col-span-12 bg-surface-container-lowest p-8 border border-outline-variant/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-4">
-                  <CertificateImage
-                    src="/images/factory-tour-quality-control.png"
-                    alt="KaiGui Quality Control license display"
-                    aspectClass="aspect-[4/5]"
-                    hoverLabel="VIEW LICENSE"
-                  />
-                </div>
-                <div className="lg:col-span-8">
-                  <span className="font-label text-[10px] text-secondary tracking-widest uppercase mb-2 block">
-                    Quality System Credential
-                  </span>
-                  <h4 className="font-headline text-3xl text-primary mb-5">
-                    Quality Control License
-                  </h4>
-                  <p className="font-body text-on-surface-variant text-sm leading-relaxed max-w-3xl">
-                    Quality control now sits directly with KaiGui&apos;s certified credentials so the
-                    inspection system is presented as part of the documented production standard,
-                    alongside the pollutant discharge permit and electroplating operation license.
-                    Batch checks, sample comparison, and final surface review help keep custom pins
-                    aligned with the approved design before shipment.
-                  </p>
-                </div>
               </div>
 
               {/* Safety Protocol */}

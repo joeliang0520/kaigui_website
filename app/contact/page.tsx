@@ -125,6 +125,10 @@ export default function ContactPage({
                 For fastest review, include your target quantity, desired delivery window, and
                 preferred contact method.
               </p>
+              <p>
+                Attach design files, mockups, or references — JPG, PNG, PDF, AI, EPS, PSD, SVG, or
+                ZIP — and our team will review them alongside the brief.
+              </p>
             </div>
           </div>
 

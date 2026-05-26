@@ -3,9 +3,9 @@ import { SiteNav } from "@/components/marketing/SiteNav";
 import { SiteFooter } from "@/components/marketing/SiteFooter";
 
 const KUNSHAN_METRICS = [
-  { value: "RMB 560B", label: "Estimated 2025 GDP" },
-  { value: "RMB 1.3T+", label: "Industrial output above designated size" },
-  { value: "RMB 824.8B", label: "Total import and export volume" },
+  { value: "USD 78B", label: "Estimated 2025 GDP" },
+  { value: "USD 180B+", label: "Industrial output above designated size" },
+  { value: "USD 115B", label: "Total import and export volume" },
   { value: "10,000", label: "Foreign-invested projects" },
   { value: "USD 120B+", label: "Total foreign investment" },
   { value: "48", label: "Fortune Global 500 companies attracted" },
@@ -85,9 +85,9 @@ export default function Home() {
 
               <div className="lg:col-span-8">
                 <p className="font-body text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-4xl">
-                  In 2025, Kunshan&apos;s GDP was estimated at around RMB 560 billion, with its
-                  total industrial output above designated size exceeding RMB 1.3 trillion and total
-                  import and export volume reaching approximately RMB 824.8 billion. The city has
+                  In 2025, Kunshan&apos;s GDP was estimated at around USD 78 billion, with its
+                  total industrial output above designated size exceeding USD 180 billion and total
+                  import and export volume reaching approximately USD 115 billion. The city has
                   also ranked among China&apos;s strongest county-level economies for more than two
                   decades.
                 </p>
@@ -165,10 +165,10 @@ export default function Home() {
                     This creates a business environment where only capable, disciplined, and compliant
                     manufacturers can survive long term. Industrial investment in Kunshan carries a
                     high entry threshold. Public land-use standards generally require new industrial
-                    projects to reach an investment intensity of approximately RMB 6 million per mu,
-                    and up to RMB 6.5 million per mu in higher-level development zones. For a 15-mu
+                    projects to reach an investment intensity of approximately USD 830,000 per mu,
+                    and up to USD 900,000 per mu in higher-level development zones. For a 15-mu
                     industrial site, this represents an estimated fixed-asset investment threshold of
-                    roughly RMB 90 million to RMB 97.5 million.
+                    roughly USD 12.5 million to USD 13.5 million.
                   </p>
                 </div>
 
@@ -227,6 +227,12 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary/95 via-primary/78 to-primary/35" />
                 <div className="absolute inset-0 -z-10 bg-primary/15 transition-colors group-hover:bg-primary/5" />
+                <span
+                  aria-hidden
+                  className="material-symbols-outlined absolute top-6 right-6 text-[20px] text-on-primary/70 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                >
+                  arrow_outward
+                </span>
                 <div>
                   <span className="font-label text-[10px] text-on-primary-container mb-4 block">01 / PLATING CONTROL</span>
                   <h3 className="font-headline text-3xl mb-6">In-House Plating Control</h3>
@@ -256,6 +262,12 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary/96 via-primary/90 to-primary/96" />
                 <div className="absolute inset-0 -z-10 bg-primary/40 transition-colors group-hover:bg-primary/30" />
+                <span
+                  aria-hidden
+                  className="material-symbols-outlined absolute top-6 right-6 text-[20px] text-on-primary/70 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                >
+                  arrow_outward
+                </span>
                 <div>
                   <span className="font-label text-[10px] text-on-primary/40 mb-4 block">02 / LICENSE STACK</span>
                   <h3 className="font-headline text-3xl mb-6">Legal Manufacturing Basis</h3>
@@ -273,24 +285,30 @@ export default function Home() {
                 </div>
               </Link>
 
-              {/* Environmental Accountability */}
+              {/* Quality System Credential */}
               <Link
                 href="/licensing#environmental-accountability"
-                className="bg-surface-container-low p-8 md:p-10 flex flex-col justify-between group"
+                className="relative bg-surface-container-low p-8 md:p-10 flex flex-col justify-between group"
               >
+                <span
+                  aria-hidden
+                  className="material-symbols-outlined absolute top-6 right-6 text-[20px] text-on-surface-variant transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                >
+                  arrow_outward
+                </span>
                 <div>
-                  <span className="font-label text-[10px] text-outline-variant mb-4 block">03 / ENVIRONMENT</span>
-                  <h3 className="font-headline text-2xl mb-6">Environmental Accountability</h3>
+                  <span className="font-label text-[10px] text-outline-variant mb-4 block">03 / QUALITY</span>
+                  <h3 className="font-headline text-2xl mb-6">Quality System Credential</h3>
                   <p className="font-body text-on-surface-variant text-sm leading-loose">
-                    Electroplating requires wastewater treatment, chemical management, discharge
-                    control, and continuous regulatory compliance.
+                    Batch checks, sample comparison, and final surface review keep custom pins
+                    aligned with the approved design before shipment.
                   </p>
                 </div>
                 <div className="mt-10 flex items-center justify-between">
                   <div className="font-label text-[10px] uppercase tracking-widest text-secondary">
-                    Wastewater + Chemical Management
+                    Batch Checks + Surface Review
                   </div>
-                  <span className="material-symbols-outlined text-3xl text-outline-variant">eco</span>
+                  <span className="material-symbols-outlined text-3xl text-outline-variant">fact_check</span>
                 </div>
               </Link>
 
@@ -299,6 +317,12 @@ export default function Home() {
                 href="/licensing#surface-finishing-scope"
                 className="md:col-span-2 bg-surface-container-highest/30 p-8 md:p-12 relative overflow-hidden group"
               >
+                <span
+                  aria-hidden
+                  className="material-symbols-outlined absolute top-6 right-6 z-10 text-[20px] text-on-surface-variant transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                >
+                  arrow_outward
+                </span>
                 <div className="relative z-10 flex h-full items-center">
                   <div className="max-w-xl">
                     <span className="font-label text-[10px] text-outline-variant mb-4 block">04 / SURFACE FINISHING</span>

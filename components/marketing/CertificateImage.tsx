@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface CertificateImageProps {
   /** Path under /public, e.g. "/images/pollutant-discharge-permit.png" */
@@ -24,6 +25,11 @@ export function CertificateImage({
   hoverLabel = "VIEW DOCUMENT",
 }: CertificateImageProps) {
   const [open, setOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -54,34 +60,36 @@ export function CertificateImage({
       </button>
 
       {/* ── Enlarge overlay ── */}
-      {open && (
-        <div
-          onClick={() => setOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-label={alt}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-primary/90 backdrop-blur-sm p-4 md:p-8 cursor-zoom-out"
-        >
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            aria-label="Close"
-            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-on-primary border border-on-primary/20 hover:bg-on-primary hover:text-primary transition-colors"
-          >
-            <span className="material-symbols-outlined">close</span>
-          </button>
+      {open && isMounted &&
+        createPortal(
           <div
-            onClick={(e) => e.stopPropagation()}
-            className="flex max-h-[calc(100vh-5rem)] max-w-[calc(100vw-2rem)] items-center justify-center overflow-hidden md:max-w-[calc(100vw-4rem)]"
+            onClick={() => setOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={alt}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-primary/90 backdrop-blur-sm p-4 md:p-8 cursor-zoom-out"
           >
-            <img
-              src={src}
-              alt={alt}
-              className="max-h-[calc(100vh-5rem)] max-w-full object-contain shadow-2xl cursor-default"
-            />
-          </div>
-        </div>
-      )}
+            <button
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label="Close"
+              className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center text-on-primary border border-on-primary/20 hover:bg-on-primary hover:text-primary transition-colors"
+            >
+              <span className="material-symbols-outlined">close</span>
+            </button>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="flex max-h-[calc(100vh-5rem)] max-w-[calc(100vw-2rem)] items-center justify-center overflow-hidden md:max-w-[calc(100vw-4rem)]"
+            >
+              <img
+                src={src}
+                alt={alt}
+                className="max-h-[calc(100vh-5rem)] max-w-full object-contain shadow-2xl cursor-default"
+              />
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

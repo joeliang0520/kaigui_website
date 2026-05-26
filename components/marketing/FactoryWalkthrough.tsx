@@ -19,7 +19,6 @@ export type FactoryWalkthroughLayout =
 
 export type FactoryWalkthroughSection = {
   id: string;
-  titleZh: string;
   titleEn: string;
   kicker: string;
   headline: string;
@@ -67,6 +66,26 @@ function FactoryImageFigure({
   );
 }
 
+const MOSAIC_LG_COLS: Record<number, string> = {
+  1: "lg:grid-cols-1",
+  2: "lg:grid-cols-2",
+  3: "lg:grid-cols-3",
+  4: "lg:grid-cols-4",
+};
+
+const MOSAIC_SM_COLS: Record<number, string> = {
+  1: "sm:grid-cols-1",
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-3",
+};
+
+function pickMosaicCols(count: number, max: number): number {
+  for (let cols = max; cols >= 2; cols--) {
+    if (count % cols === 0) return cols;
+  }
+  return max;
+}
+
 function MosaicImages({
   images,
   startIndex = 0,
@@ -78,8 +97,11 @@ function MosaicImages({
     return null;
   }
 
+  const lgColsClass = MOSAIC_LG_COLS[pickMosaicCols(images.length, 4)];
+  const smColsClass = MOSAIC_SM_COLS[pickMosaicCols(images.length, 3)];
+
   return (
-    <div className="mt-2 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+    <div className={`mt-2 grid grid-cols-2 gap-2 ${smColsClass} ${lgColsClass}`}>
       {images.map((image, index) => (
         <FactoryImageFigure
           key={image.src}
@@ -107,7 +129,7 @@ function RollingImages({
         {loopImages.map((image, index) => (
           <figure
             key={`${image.src}-${index}`}
-            className="group relative w-[260px] shrink-0 overflow-hidden bg-surface-container-lowest md:w-[340px]"
+            className="group relative w-[340px] shrink-0 overflow-hidden bg-surface-container-lowest md:w-[480px]"
           >
             <div className="aspect-[4/3] overflow-hidden">
               <img
@@ -139,6 +161,7 @@ function renderMediaLayout(section: FactoryWalkthroughSection, isFirstSection: b
   }
 
   if (section.layout === "arrival") {
+    const [thirdImage, fourthImage, ...remainingArrivalImages] = rest;
     return (
       <div>
         <div className="grid grid-cols-1 gap-2 lg:grid-cols-12">
@@ -157,17 +180,24 @@ function renderMediaLayout(section: FactoryWalkthroughSection, isFirstSection: b
               revealIndex={1}
             />
           ) : null}
-          <div className="bg-primary p-6 text-on-primary lg:col-span-4 lg:min-h-[206px] lg:flex lg:flex-col lg:justify-center">
-            <p className="font-label text-[10px] uppercase tracking-[0.25em] text-on-primary-container mb-3">
-              Tour Context
-            </p>
-            <p className="text-sm text-on-primary/80 leading-relaxed">
-              The walkthrough starts at the campus. Every department, building, and environmental
-              system you see lives on this one site.
-            </p>
-          </div>
+          {thirdImage ? (
+            <FactoryImageFigure
+              image={thirdImage}
+              className="lg:col-span-2"
+              imageClassName="aspect-[4/3] lg:min-h-[206px]"
+              revealIndex={2}
+            />
+          ) : null}
+          {fourthImage ? (
+            <FactoryImageFigure
+              image={fourthImage}
+              className="lg:col-span-2"
+              imageClassName="aspect-[4/3] lg:min-h-[206px]"
+              revealIndex={3}
+            />
+          ) : null}
         </div>
-        <MosaicImages images={rest} startIndex={2} />
+        <MosaicImages images={remainingArrivalImages} startIndex={4} />
       </div>
     );
   }
@@ -193,62 +223,84 @@ function renderMediaLayout(section: FactoryWalkthroughSection, isFirstSection: b
   }
 
   if (section.layout === "inspection") {
-    const restImages = section.images.slice(1);
+    const rightImages = section.images.slice(1, 4);
     return (
       <div className="grid grid-cols-1 gap-2 lg:grid-cols-12">
         <FactoryImageFigure
           image={primary}
-          className="lg:col-span-8"
-          imageClassName="aspect-[16/10] min-h-[360px] lg:h-full"
+          className="lg:col-span-8 lg:row-span-3"
+          imageClassName="aspect-[4/3] min-h-[360px] lg:absolute lg:inset-0 lg:aspect-auto lg:min-h-0"
           eager={isFirstSection}
           revealIndex={0}
         />
-        <div className="grid grid-cols-2 gap-2 lg:col-span-4 lg:grid-cols-1">
-          {restImages.slice(0, 2).map((image, index) => (
-            <FactoryImageFigure
-              key={image.src}
-              image={image}
-              imageClassName="aspect-[4/3]"
-              revealIndex={index + 1}
-            />
-          ))}
-        </div>
-        <div className="lg:col-span-12">
-          <MosaicImages images={restImages.slice(2)} startIndex={3} />
-        </div>
+        {rightImages.map((image, index) => (
+          <FactoryImageFigure
+            key={image.src}
+            image={image}
+            className="lg:col-span-4"
+            imageClassName="aspect-[16/9]"
+            revealIndex={index + 1}
+          />
+        ))}
       </div>
     );
   }
 
   if (section.layout === "compliance") {
-    const restImages = section.images.slice(1);
+    const exhaustImageIndex = section.images.findIndex(
+      (image) => image.sourceName.includes("廢氣塔") || image.sourceName.includes("废气塔"),
+    );
+    const exhaustImage = exhaustImageIndex >= 0 ? section.images[exhaustImageIndex] : null;
+    const nonExhaustImages = section.images.filter((_, index) => index !== exhaustImageIndex);
+    const [primaryImage, ...restImages] = nonExhaustImages;
+
     return (
       <div className="grid grid-cols-1 gap-2 lg:grid-cols-12">
         <FactoryImageFigure
-          image={primary}
+          image={primaryImage ?? primary}
           className="lg:col-span-8"
           imageClassName="aspect-[16/9] min-h-[340px] lg:h-full"
           eager={isFirstSection}
           revealIndex={0}
         />
-        <div className="bg-surface-container-high p-7 lg:col-span-4 lg:flex lg:flex-col lg:justify-center">
-          <p className="font-label text-[10px] uppercase tracking-[0.25em] text-secondary mb-4">
-            Why It Matters
-          </p>
-          <p className="text-sm text-on-surface-variant leading-relaxed">
-            Environmental infrastructure is part of the production system. Wastewater treatment,
-            exhaust scrubbing, and certified chemical storage all sit on the same operating campus.
-          </p>
+        <div className="flex flex-col gap-2 lg:col-span-4">
+          <div className="bg-surface-container-high p-7 lg:flex-1 lg:flex lg:flex-col lg:justify-center">
+            <p className="font-label text-[12px] uppercase tracking-[0.25em] text-secondary mb-4">
+        
+            </p>
+            <p className="text-l text-on-surface-variant leading-relaxed">
+              “For us, environmental care is not an add-on. It is part of how the factory
+              operates every day. Wastewater treatment, exhaust scrubbing, and certified
+              chemical storage are all managed on the same campus to help ensure cleaner,
+              safer, and more responsible production.”
+            </p>
+            <p className="mt-4 text-sm font-medium text-on-surface">
+              — Tom, Second-Generation Factory Leader
+            </p>
+          </div>
+          {exhaustImage ? (
+            <FactoryImageFigure
+              image={exhaustImage}
+              className="w-full lg:flex-1"
+              imageClassName="aspect-[4/3] w-full lg:aspect-auto lg:h-full lg:min-h-[170px]"
+              revealIndex={1}
+            />
+          ) : null}
         </div>
         <div className="lg:col-span-12">
-          <MosaicImages images={restImages} startIndex={1} />
+          <MosaicImages images={restImages} startIndex={2} />
         </div>
       </div>
     );
   }
 
-  const secondaryImages = section.images.slice(1, 3);
-  const remainingImages = section.images.slice(3);
+  const showQuoteSlot = section.id === "coloring-workshop";
+  const secondaryImages = showQuoteSlot
+    ? section.images.slice(1, 2)
+    : section.images.slice(1, 3);
+  const remainingImages = showQuoteSlot
+    ? section.images.slice(2)
+    : section.images.slice(3);
 
   return (
     <div>
@@ -269,8 +321,23 @@ function renderMediaLayout(section: FactoryWalkthroughSection, isFirstSection: b
             revealIndex={index + 1}
           />
         ))}
+        {showQuoteSlot ? (
+          <figure className="relative flex flex-col justify-center gap-4 bg-primary p-7 text-on-primary lg:col-span-5 lg:min-h-[186px]">
+            <span
+              aria-hidden="true"
+              className="font-headline text-5xl italic leading-none text-on-primary/40"
+            >
+              &ldquo;
+            </span>
+            <blockquote className="space-y-3 text-sm leading-relaxed text-on-primary/90">
+              {section.body.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </blockquote>
+          </figure>
+        ) : null}
       </div>
-      <MosaicImages images={remainingImages} startIndex={3} />
+      <MosaicImages images={remainingImages} startIndex={secondaryImages.length + 1} />
     </div>
   );
 }
@@ -328,7 +395,6 @@ export function FactoryWalkthrough({ sections }: FactoryWalkthroughProps) {
                 <h3 className="font-headline text-4xl leading-tight text-primary md:text-5xl">
                   {section.titleEn}
                 </h3>
-                <p className="mt-4 text-xl font-semibold text-primary">{section.titleZh}</p>
               </div>
               <div className="lg:col-span-8">
                 <h4 className="font-headline text-3xl leading-tight text-primary md:text-4xl">

@@ -414,7 +414,7 @@ body {
 }
 
 .factory-story-marquee-track {
-  animation: factory-story-roll-left-to-right 38s linear infinite;
+  animation: factory-story-roll-left-to-right 60s linear infinite;
 }
 
 .factory-story-marquee:hover .factory-story-marquee-track {
